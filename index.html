@@ -15,10 +15,15 @@
     .logo .dot{color:var(--red)}
     .footer-logo-txt{font-weight:950;font-size:30px;color:#fff;letter-spacing:-.02em}
     .footer-logo-txt .dot{color:var(--pink)}
-    /* language switch */
-    .lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-right:14px}
-    .lang button{border:0;background:transparent;font-weight:900;font-size:12px;letter-spacing:.04em;padding:8px 12px;cursor:pointer;color:var(--muted)}
-    .lang button.on{background:var(--ink);color:#fff}
+    /* language switch — side rail (desktop/tablet) + mega menu (mobile) */
+    .rail-lang{display:grid;background:var(--white);border:1px solid var(--line-strong);border-right:0}
+    .rail-lang button{border:0;background:transparent;font-weight:900;font-size:12px;letter-spacing:.08em;padding:10px 0;cursor:pointer;color:var(--muted)}
+    .rail-lang button+button{border-top:1px solid var(--line)}
+    .rail-lang button.on{background:var(--ink);color:var(--white)}
+    .mega-lang{display:flex;gap:10px;padding-top:18px}
+    .mega-lang button{border:1px solid var(--line);background:var(--white);font-weight:900;font-size:13px;padding:10px 18px;cursor:pointer}
+    .mega-lang button.on{background:var(--ink);color:var(--white);border-color:var(--ink)}
+    
     /* image / gradient media */
     .hero-visual{min-height:540px}
     .hero-img{position:absolute;inset:0;width:100%;height:100%;background-image:url('assets/hero.jpg');background-size:cover;background-position:center}
@@ -29,20 +34,21 @@
     .topic-card .media-bg::after{content:attr(data-k);position:absolute;left:18px;bottom:56px;color:rgba(255,255,255,.9);font-weight:950;font-size:34px;letter-spacing:-.02em}
     .proposal-note{background:var(--ink);color:#fff;text-align:center;font-size:12px;letter-spacing:.12em;font-weight:800;padding:8px}
     .proposal-note b{color:var(--pink)}
-    /* header actions: fit language toggle + contact + menu */
-    .gnb .container{grid-template-columns:180px 1fr auto}
-    .nav-actions{display:flex;align-items:stretch;width:auto;gap:0}
-    .nav-actions>.lang{align-self:center;margin:0 14px}
-    .nav-actions>a{padding:0 22px}
-    .nav-actions>button{padding:0 22px}
     /* hero: fit CIZMO copy (latin + jp) so nothing overflows the column */
     .hero-layout{grid-template-columns:6fr 6fr}
     .hero-title h1{font-size:clamp(44px,5.4vw,94px)}
-    @media(max-width:900px){.gnb .container{grid-template-columns:1fr auto}.hero-title h1{font-size:52px}}
+    /* keep hero side-by-side on tablet widths (861-1180) instead of stacking */
+    @media(max-width:1180px) and (min-width:861px){
+      .hero-layout{grid-template-columns:1fr 1fr}
+      .hero-copy,.hero-visual{grid-column:auto}
+      .hero-title h1{font-size:clamp(40px,5vw,64px)}
+    }
+    @media(max-width:860px){.hero-title h1{font-size:48px}}
   </style>
 </head>
 <body>
   <aside class="side-rail">
+    <div class="rail-lang"><button data-lang="ja" class="on">JA</button><button data-lang="ko">KO</button><button data-lang="en">EN</button></div>
     <a class="rail-link rail-oc" href="#contact"><span data-ko="お問い合わせ" data-en="お問い合わせ">お問い合わせ</span></a>
     <a class="rail-link rail-request" href="#contact"><span>資料請求</span></a>
     <button class="rail-top" id="railTop"><span>TOP</span></button>
@@ -65,10 +71,7 @@
           <a href="#news" data-ko="뉴스" data-en="News">ニュース</a>
           <a href="#recruit" data-ko="채용" data-en="Recruit">採用</a>
         </nav>
-        <div class="nav-actions">
-          <div class="lang"><button data-lang="ja" class="on">JA</button><button data-lang="ko">KO</button><button data-lang="en">EN</button></div>
-          <a href="#contact" data-ko="문의하기" data-en="Contact">お問い合わせ</a><button id="menuBtn">MENU</button>
-        </div>
+        <div class="nav-actions"><a href="#contact" data-ko="문의하기" data-en="Contact">お問い合わせ</a><button id="menuBtn">MENU</button></div>
       </div>
     </div>
     <div class="mega" id="mega"><div class="container mega-grid">
@@ -76,7 +79,8 @@
       <a href="#netmaru" class="mega-card"><h3>netmaru</h3><p data-ko="캠핑·차박 스팟 공유 플랫폼" data-en="Camping & car-camping spot sharing platform">キャンプ・車中泊スポット共有プラットフォーム</p></a>
       <a href="#business" class="mega-card"><h3 data-ko="AI개발·RPA" data-en="AI Dev & RPA">AI開発・RPA</h3><p data-ko="생성AI 개발과 업무 자동화 지원" data-en="Generative-AI development & office automation">生成AI開発と業務自動化の導入支援</p></a>
       <a href="#business" class="mega-card"><h3 data-ko="AI교육·컨설팅" data-en="AI Education">AI教育・コンサル</h3><p data-ko="기업 AI 리터러시 교육과 도입 컨설팅" data-en="Corporate AI literacy & adoption consulting">企業向けAIリテラシー教育と導入コンサル</p></a>
-    </div></div>
+    </div>
+    <div class="container mega-lang"><button data-lang="ja" class="on">日本語</button><button data-lang="ko">한국어</button><button data-lang="en">English</button></div></div>
   </header>
 
   <main id="top">
@@ -158,15 +162,6 @@
       </div>
     </div></section>
 
-    <!-- RESULTS -->
-    <section class="section" id="results"><div class="container results-grid">
-      <div class="results-copy reveal"><p class="label">Numbers</p><h2 class="section-title" style="font-size:64px;margin:16px 0 0" data-ko="숫자로 보는 CIZMO" data-en="CIZMO in Numbers">数字で見るCIZMO</h2><p class="body-copy" style="margin:28px 0 0" data-ko="한일 크리에이터 네트워크와 AI 실행력으로, 리치와 업무 효율을 동시에." data-en="With a Korea–Japan creator network and AI execution, we grow reach and efficiency together.">日韓のクリエイターネットワークとAI実行力で、リーチと業務効率を同時に。</p></div>
-      <div class="results-cards">
-        <div class="result-card reveal"><b>50M+</b><h3 data-ko="SNS 총 리치" data-en="Total SNS reach">SNS総リーチ</h3><p data-ko="캠페인 누계" data-en="Campaign cumulative">キャンペーン累計</p></div>
-        <div class="result-card reveal"><b>120+</b><h3 data-ko="지원 프로젝트" data-en="Projects delivered">支援プロジェクト</h3><p data-ko="마케팅·AI·개발" data-en="Marketing / AI / Dev">マーケ・AI・開発</p></div>
-        <div class="result-card reveal"><b>2 ヶ国</b><h3 data-ko="한일 거점" data-en="KR–JP presence">日韓の拠点</h3><p data-ko="크로스보더 실행" data-en="Cross-border execution">クロスボーダー実行</p></div>
-      </div>
-    </div></section>
 
     <!-- NETMARU (abroad layout) -->
     <section class="section abroad" id="netmaru"><div class="container abroad-grid">
@@ -247,10 +242,10 @@
       window.setLang=function(l){
         document.documentElement.lang = l;
         document.querySelectorAll('[data-ja]').forEach(el=>{ var v=el.dataset[l]; if(v!=null&&v!=='') el.innerHTML=v; });
-        document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on', b.dataset.lang===l));
+        document.querySelectorAll('button[data-lang]').forEach(b=>b.classList.toggle('on', b.dataset.lang===l));
         try{ localStorage.setItem('cizmo_lang', l); }catch(e){}
       };
-      document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+      document.querySelectorAll('button[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
       var saved=null; try{ saved=localStorage.getItem('cizmo_lang'); }catch(e){}
       if(saved && saved!=='ja') setLang(saved);
     })();
@@ -302,11 +297,6 @@
         if(works){
           from(q(works,'.topic-card'),{x:72,opacity:0,duration:.82,ease:'power3.out',stagger:.11},works.querySelector('.topic-grid'),'top 83%');
           from(q(works,'.topic-card h3'),{y:22,opacity:0,duration:.62,ease:'power2.out',stagger:.09},works.querySelector('.topic-grid'),'top 83%');
-        }
-        const results=document.querySelector('#results');
-        if(results){
-          from(textItems(results.querySelector('.results-copy')),{x:-30,opacity:0,duration:.82,ease:'power3.out',stagger:.08},results,'top 78%');
-          from(q(results,'.result-card'),{x:42,opacity:0,duration:.86,ease:'power3.out',stagger:.12},results.querySelector('.results-cards'),'top 80%');
         }
         const netmaru=document.querySelector('#netmaru');
         if(netmaru){
