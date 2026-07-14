@@ -530,7 +530,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
   addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('open')){m.classList.remove('open');document.body.style.overflow='';}});
 })();
 /* ---- notices from Supabase CMS (falls back to static list) ---- */
-(function(){
+function cizmoLoadNotices(){
   var cfg=window.CIZMO_SUPABASE||{};
   if(!cfg.url||!cfg.anonKey||!window.supabase) return;
   var sb=window.supabase.createClient(cfg.url,cfg.anonKey);
@@ -555,7 +555,8 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
     var cur=null; try{cur=localStorage.getItem('cizmo_lang');}catch(e){}
     if(cur&&cur!=='ja') setLang(cur);
   });
-})();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',cizmoLoadNotices);}else{cizmoLoadNotices();}
 </script>
 </body>
 </html>
