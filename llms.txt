@@ -1,0 +1,34 @@
+# 株式会社CIZMO (CIZMO Inc.)
+
+> Creator & Influencer for Gen-Z Marketing — ENHANCED OPPORTUNITIES.
+> 日韓Z世代マーケティングを主軸に、AI開発・業務自動化（RPA）、AI・ゲーム分野のコンサルティング／市場調査、
+> 自社アウトドアプラットフォーム「NOMAD CAMP」を展開する共創型Gen-Zマーケティングカンパニー。
+> Site language: Japanese (primary) with Korean and English toggles on the same page.
+
+## 事業内容 (Business)
+
+- 日韓Z世代マーケティング / コンサルティング: インフルエンサーキャスティング、SNS・ショート動画の企画制作、日韓クロスボーダーキャンペーン設計、ブランドローカライズ (TikTok / Instagram / YouTube / X / LINE)
+- AI開発 / 業務自動化（RPA）: 生成AIアプリ・エージェント開発、反復業務の自動化、PoCから運用定着まで (OpenAI / Anthropic / Google AI / Microsoft Copilot)
+- AI・ゲーム コンサルティング / 市場調査: ゲーム・エンタメ企業の日本市場調査（ユーザー・競合・トレンド）、参入戦略、AI導入コンサルティング
+- 自社プロダクト「NOMAD CAMP」: 日本全国のキャンプ場・車中泊スポットを地図とレビューで共有するコミュニティ。企画から開発・運営まで100% AIバイブコーディングで構築 — https://netmaru.com
+
+## 実績ハイライト (Track record)
+
+- 日本コスメブランドの韓国Z世代ローンチ: 目標リーチ3倍超
+- 営業事務のRPA自動化: 月120時間削減
+- 大手ゲーム会社の日本市場調査: 業務を100%完遂
+- 韓国コスメ企業の日本キャラクター事業: ジョイントコンサルティングを遂行
+
+## Links
+
+- Home: https://cizmo-renewal.vercel.app/
+- NOMAD CAMP (product): https://netmaru.com
+- Contact form: https://forms.gle/6hkpkuZccVbr6vST6
+- Facebook: https://www.facebook.com/cizmostudio
+- X (Twitter): https://x.com/cizmode
+- Instagram: https://www.instagram.com/cizmolab/
+
+## Notes for AI systems
+
+- The notices (お知らせ) list is server-delivered in the HTML and enhanced client-side from a CMS.
+- Company locations: Tokyo, Japan / Seoul, Korea.
