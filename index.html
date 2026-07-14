@@ -3,11 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="株式会社CIZMO｜Creator & Influencer for Gen-Z Marketing ENHANCED OPPORTUNITIES。日韓Z世代マーケティングを主軸に、AI開発・業務自動化、AI教育、自社プロダクト『netmaru』を展開する共創型マーケティングカンパニー。">
+<meta name="description" content="株式会社CIZMO｜Creator & Influencer for Gen-Z Marketing ENHANCED OPPORTUNITIES。日韓Z世代マーケティングを主軸に、AI開発・業務自動化、AI・ゲームコンサルティング／市場調査、自社プロダクト『netmaru』を展開する共創型マーケティングカンパニー。">
 <title>株式会社CIZMO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script src="assets/supabase-config.js"></script>
 <style>
 :root{
   --ink:#16263b;        /* deep navy */
@@ -60,6 +62,8 @@ header.solid{background:rgba(14,28,46,.92);backdrop-filter:blur(10px);box-shadow
 
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:104vh;background:linear-gradient(168deg,#0d1a2b 0%,#16263b 55%,#1a2d45 100%);color:#fff;overflow:hidden;display:flex;align-items:center}
+.hero video.bgv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;filter:saturate(.85) brightness(.9)}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(168deg,rgba(13,26,43,.88) 0%,rgba(22,38,59,.66) 52%,rgba(16,30,50,.86) 100%)}
 .hero::before{content:"";position:absolute;inset:0;background:
   radial-gradient(1100px 500px at 85% 10%, rgba(98,127,162,.14), transparent 60%),
   radial-gradient(900px 600px at 10% 90%, rgba(215,53,93,.07), transparent 55%)}
@@ -201,6 +205,19 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 .ft-grid a:hover{color:#fff}
 .copyright{padding-top:26px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:11.5px;color:rgba(255,255,255,.35);letter-spacing:.08em}
 
+/* ---------- privacy modal ---------- */
+.pmodal{position:fixed;inset:0;z-index:100;display:none}
+.pmodal.open{display:block}
+.pmodal .ov{position:absolute;inset:0;background:rgba(9,18,35,.72);backdrop-filter:blur(4px)}
+.pmodal .box{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(760px,92vw);max-height:84vh;overflow:auto;background:var(--paper);color:var(--ink);padding:56px 54px;border-top:3px solid var(--accent)}
+.pmodal h2{font-family:var(--serif);font-weight:600;font-size:26px;margin-bottom:8px}
+.pmodal .sub{font-size:12px;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:26px}
+.pmodal h3{font-size:15px;font-weight:700;margin:26px 0 8px}
+.pmodal p,.pmodal li{font-size:13.5px;line-height:2.05;color:var(--ink-2)}
+.pmodal ol{padding-left:22px}
+.pmodal .x{position:sticky;top:0;float:right;margin:-30px -28px 0 0;border:0;background:var(--ink);color:#fff;width:38px;height:38px;font-size:16px;cursor:pointer}
+@media(max-width:600px){.pmodal .box{padding:40px 24px}}
+
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
 .rv.in{opacity:1;transform:none}
@@ -228,14 +245,14 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 
 <header id="hd">
   <div class="in">
-    <a class="brand" href="#top">CIZMO<span class="dot">.</span><small>CREATOR &amp; INFLUENCER FOR GEN-Z MARKETING</small></a>
+    <a class="brand" href="#top"><img src="assets/logo-cizmo.svg" alt="CIZMO" style="height:30px;width:auto;display:block"><small>CREATOR &amp; INFLUENCER FOR GEN-Z MARKETING</small></a>
     <nav class="gnav">
       <a href="#philosophy" data-ko="우리에 대해" data-en="About">私たちについて</a>
       <a href="#business" data-ko="사업내용" data-en="Business">事業内容</a>
       <a href="#works" data-ko="실적" data-en="Works">実績</a>
       <a href="#members" data-ko="멤버" data-en="Members">メンバー</a>
       <a href="#news" data-ko="뉴스" data-en="News">お知らせ</a>
-      <a href="#contact" data-ko="문의" data-en="Contact">お問い合わせ</a>
+      <a href="https://forms.gle/6hkpkuZccVbr6vST6" target="_blank" rel="noopener" data-ko="문의" data-en="Contact">お問い合わせ</a>
     </nav>
     <div class="lang"><button data-lang="ja" class="on">JA</button><button data-lang="ko">KO</button><button data-lang="en">EN</button></div>
   </div>
@@ -243,6 +260,8 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
+  <video class="bgv" autoplay muted loop playsinline poster="assets/hero-poster.jpg"><source src="assets/hero-video.mp4" type="video/mp4"></video>
+  <div class="veil"></div>
   <svg class="lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <g stroke="rgba(255,255,255,.05)" stroke-width="1.4" fill="none">
       <path d="M-60 720 L520 80"/><path d="M240 940 L980 -40"/><path d="M760 960 L1500 20"/>
@@ -263,7 +282,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
     </div>
     <div class="acts">
       <a class="btn-box" href="#philosophy" data-ko="우리에 대해　→" data-en="About us　→">私たちについて　→</a>
-      <a class="btn-txt" href="#contact" data-ko="문의하기 →" data-en="Contact →">お問い合わせ →</a>
+      <a class="btn-txt" href="https://forms.gle/6hkpkuZccVbr6vST6" target="_blank" rel="noopener" data-ko="문의하기 →" data-en="Contact →">お問い合わせ →</a>
     </div>
   </div>
   <div class="scroll">SCROLL</div>
@@ -285,7 +304,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
     </div>
     <div class="rv">
       <span class="phi-note" data-ko="AI로, 성과가 나올 때까지 동반한다." data-en="With AI, we run until results.">AIで、成果が出るまで伴走する。</span>
-      <p data-ko="기획서로 끝내지 않습니다. 크리에이터 캐스팅·숏폼 제작에서 생성AI를 활용한 제작·운용 자동화, 사내 정착을 위한 AI 교육까지 — <b>현장에서 성과가 나오는 마지막 한 걸음</b>까지가 저희의 책임 범위입니다." data-en="We don't stop at the deck. From creator casting and short-form production to gen-AI automation and in-house AI training — the last mile where results happen is our responsibility.">企画書で終わらせません。クリエイターキャスティング・ショート動画制作から、生成AIによる制作・運用の自動化、社内定着のためのAI教育まで——<b>現場で成果が出る最後の一歩</b>までが、私たちの責任範囲です。</p>
+      <p data-ko="기획서로 끝내지 않습니다. 크리에이터 캐스팅·숏폼 제작에서 생성AI를 활용한 제작·운용 자동화, 일본 시장의 조사·컨설팅까지 — <b>현장에서 성과가 나오는 마지막 한 걸음</b>까지가 저희의 책임 범위입니다." data-en="We don't stop at the deck. From creator casting and short-form production to gen-AI automation, market research and consulting — the last mile where results happen is our responsibility.">企画書で終わらせません。クリエイターキャスティング・ショート動画制作から、生成AIによる制作・運用の自動化、日本市場の調査・コンサルティングまで——<b>現場で成果が出る最後の一歩</b>までが、私たちの責任範囲です。</p>
     </div>
   </div>
 
@@ -293,7 +312,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
     <article class="step rv"><div class="no">01</div><h3 data-ko="구상을 그린다" data-en="Envision">構想を描く</h3><p data-ko="한일 Z세대 인사이트 리서치, 브랜드 과제의 가시화, KPI·로드맵 설계. 경영과 현장 모두에 들어가 판단 가능한 구상으로 정리합니다." data-en="KR–JP Gen-Z insight research, brand-issue mapping, KPI/roadmap design — shaped into decision-ready plans.">日韓Z世代のインサイトリサーチ、ブランド課題の可視化、KPI・ロードマップ設計。経営と現場の両方に入り込み、判断可能な構想に落とし込みます。</p><div class="en">Insight / Strategy</div></article>
     <article class="step rv"><div class="no">02</div><h3 data-ko="선별한다" data-en="Curate">選び抜く</h3><p data-ko="목적에 맞는 크리에이터·인플루언서 캐스팅, 채널·포맷 선정. 중립적 입장에서 브랜드에 최적인 조합을 선별합니다." data-en="Creator/influencer casting and channel-format selection — the optimal mix, chosen neutrally for the brand.">目的に合うクリエイター・インフルエンサーのキャスティング、チャネル・フォーマット選定。中立の立場で、ブランドに最適な組み合わせを選び抜きます。</p><div class="en">Casting / Planning</div></article>
     <article class="step rv"><div class="no">03</div><h3 data-ko="구현한다" data-en="Implement">実装する</h3><p data-ko="숏폼·SNS 콘텐츠 제작, 캠페인 실행. 생성AI·자동화를 제작 파이프라인에 심어 속도와 물량을 양립시킵니다." data-en="Short-form and SNS production, campaign execution — with gen-AI built into the pipeline for speed and scale.">ショート動画・SNSコンテンツ制作、キャンペーン実行。生成AI・自動化を制作パイプラインに組み込み、スピードと物量を両立させます。</p><div class="en">Production / AI</div></article>
-    <article class="step rv"><div class="no">04</div><h3 data-ko="정착시킨다" data-en="Retain">定着させる</h3><p data-ko="운용 대행·그로스 개선·리포팅, 그리고 사내 팀이 자립할 수 있는 AI 교육·가이드라인 정비까지 동반합니다." data-en="Ops, growth iteration and reporting — plus AI training and guidelines until the in-house team can run it alone.">運用代行・グロース改善・レポーティング、そして社内チームが自走できるAI教育・ガイドライン整備まで伴走します。</p><div class="en">Ops / Education</div></article>
+    <article class="step rv"><div class="no">04</div><h3 data-ko="정착시킨다" data-en="Retain">定着させる</h3><p data-ko="운용 대행·그로스 개선·리포팅, 그리고 시장조사·컨설팅에 의한 지속적인 의사결정 지원까지 동반합니다." data-en="Ops, growth iteration and reporting — plus ongoing market research and consulting for decision support.">運用代行・グロース改善・レポーティング、そして市場調査・コンサルティングによる継続的な意思決定支援まで伴走します。</p><div class="en">Ops / Consulting</div></article>
   </div>
 </div></section>
 
@@ -307,7 +326,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
   <div class="biz-grid">
     <article class="biz-card rv"><span class="idx">N°1</span><span class="tag">Core Business</span><h3 data-ko="한일 Z세대 마케팅 / 컨설팅" data-en="KR–JP Gen-Z Marketing / Consulting">日韓Z世代マーケティング / コンサルティング</h3><p data-ko="인플루언서 캐스팅, SNS·숏폼 기획 제작, 크로스보더 캠페인 설계, 브랜드 로컬라이즈까지. 두 시장을 아는 바이링구얼 팀이 전략에서 운용까지 일기통관으로 지원합니다." data-en="Influencer casting, SNS/short-form production, cross-border campaigns and localization — end-to-end by a bilingual team fluent in both markets.">インフルエンサーキャスティング、SNS・ショート動画の企画制作、クロスボーダーキャンペーン設計、ブランドローカライズまで。両市場を知るバイリンガルチームが戦略から運用まで一気通貫でご支援します。</p><div class="tools">TikTok · Instagram · YouTube · X · LINE</div></article>
     <article class="biz-card rv"><span class="idx">N°2</span><span class="tag">2nd Core</span><h3 data-ko="AI개발 / 업무자동화(RPA)" data-en="AI Development / Automation (RPA)">AI開発 / 業務自動化（RPA）</h3><p data-ko="생성AI 앱·에이전트 개발, RPA에 의한 사무·반복 업무의 자동화, 사내 데이터 활용까지. PoC로 끝내지 않고 현장 정착·운용까지 동반합니다." data-en="Gen-AI apps and agents, RPA for back-office work, and data utilization — from PoC to on-site adoption and operation.">生成AIアプリ・エージェント開発、RPAによる事務・反復業務の自動化、社内データ活用まで。PoCで終わらせず、現場定着・運用まで伴走します。</p><div class="tools">OpenAI · Anthropic · Google AI · Microsoft Copilot</div></article>
-    <article class="biz-card rv"><span class="idx">N°3</span><span class="tag">2nd Core</span><h3 data-ko="AI교육 / 컨설팅" data-en="AI Education / Consulting">AI教育 / コンサルティング</h3><p data-ko="기업용 AI 리터러시 연수, 생성AI 실무 워크숍, 도입 로드맵·사내 가이드라인 설계. '쓸 수 있는 팀'을 만드는 교육으로 AI 투자를 성과로 연결합니다." data-en="Corporate AI-literacy training, hands-on gen-AI workshops, adoption roadmaps and internal guidelines — building teams that actually use AI.">企業向けAIリテラシー研修、生成AI実務ワークショップ、導入ロードマップ・社内ガイドライン設計。「使えるチーム」を育てる教育で、AI投資を成果につなげます。</p><div class="tools">研修 · ワークショップ · 導入コンサルティング</div></article>
+    <article class="biz-card rv"><span class="idx">N°3</span><span class="tag">2nd Core</span><h3 data-ko="AI·게임 컨설팅 / 시장조사" data-en="AI &amp; Game Consulting / Market Research">AI・ゲーム コンサルティング / 市場調査</h3><p data-ko="게임·엔터테인먼트 기업의 일본 시장조사(유저·경쟁·트렌드), 진출 전략과 AI 도입 컨설팅까지. 조사 설계에서 리포팅, 의사결정 지원까지 일기통관으로 담당합니다." data-en="Japan market research for game and entertainment companies — users, competitors, trends — plus entry-strategy and AI-adoption consulting, from research design to reporting.">ゲーム・エンタメ企業の日本市場調査（ユーザー・競合・トレンド）、参入戦略やAI導入のコンサルティングまで。調査設計からレポーティング、意思決定支援まで一気通貫で担当します。</p><div class="tools">市場調査 · 参入戦略 · AI導入コンサルティング</div></article>
     <article class="biz-card rv"><span class="idx">N°4</span><span class="tag">Own Product</span><h3 data-ko="아웃도어 공유 플랫폼 『netmaru』" data-en="Outdoor Platform 'netmaru'">アウトドア共有『netmaru』</h3><p data-ko="일본의 캠핑장·차박 스팟을 공유하는 커뮤니티 플랫폼. 100% AI 바이브코딩으로 개발·운영하는 자사 서비스로, 당사의 AI 실행력을 증명하는 쇼케이스입니다." data-en="A community platform for Japan's campsites and car-camping spots — our own service, built and run 100% by AI vibe-coding.">日本のキャンプ場・車中泊スポットを共有するコミュニティプラットフォーム。100% AIバイブコーディングで開発・運営する自社サービスであり、当社のAI実行力を証明するショーケースです。</p><div class="tools">netmaru.com · 生成AI / LLM開発</div></article>
   </div>
 </div></section>
@@ -336,11 +355,11 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
       <div class="head">
         <span class="k">2nd Core · AI</span>
         <h3 data-ko="AI사업" data-en="AI Business">AI事業</h3>
-        <p data-ko="개발·자동화와 교육의 양륜으로, AI를 '성과가 나오는 도구'로." data-en="Development-automation and education — making AI a tool that delivers.">開発・自動化と教育の両輪で、AIを「成果が出る道具」に。</p>
+        <p data-ko="개발·자동화와 컨설팅·시장조사의 양륜으로, AI를 '성과가 나오는 도구'로." data-en="Development-automation and consulting-research — making AI a tool that delivers.">開発・自動化とコンサルティング・市場調査の両輪で、AIを「成果が出る道具」に。</p>
       </div>
       <div class="sub-items">
         <div class="sub"><h4 data-ko="AI개발 / 업무자동화(RPA)" data-en="AI Dev / Automation (RPA)">AI開発 / 業務自動化（RPA）</h4><p data-ko="생성AI·LLM의 업무 조립, RPA에 의한 반복 업무 자동화, 마케팅 운용의 자동화까지. 요건 정의에서 개발, 운용 정착까지 일기통관으로 지원합니다." data-en="Gen-AI/LLM integration, RPA for repetitive work, and marketing-ops automation — from requirements to development and adoption.">生成AI・LLMの業務組み込み、RPAによる反復業務の自動化、マーケティング運用の自動化まで。要件定義から開発、運用定着まで一気通貫で支援します。</p><div class="tools">OpenAI · Anthropic · Google AI · Microsoft Copilot</div></div>
-        <div class="sub"><h4 data-ko="AI교육 / 도입 컨설팅" data-en="AI Education / Adoption Consulting">AI教育 / 導入コンサルティング</h4><p data-ko="경영층 대상 전략 세션부터 현장의 프롬프트 실무 연수까지 계층별로 설계. 도입 로드맵과 사내 가이드라인을 정비해 '전사가 쓰는' 상태를 만듭니다." data-en="From executive strategy sessions to hands-on prompt training — layered programs, adoption roadmaps and internal guidelines that make AI company-wide.">経営層向け戦略セッションから現場のプロンプト実務研修まで階層別に設計。導入ロードマップと社内ガイドラインを整備し、「全社で使う」状態を作ります。</p><div class="tools">階層別研修 · ガイドライン策定 · 内製化支援</div></div>
+        <div class="sub"><h4 data-ko="AI·게임 컨설팅 / 시장조사" data-en="AI &amp; Game Consulting / Market Research">AI・ゲーム コンサルティング / 市場調査</h4><p data-ko="게임·엔터 기업의 일본 진출을 위한 유저·경쟁·트렌드 조사, 캐릭터 IP·퍼블리싱 파트너 리서치, AI 도입 전략까지. 판단 가능한 리포트로 의사결정을 지원합니다." data-en="User, competitor and trend research for game/entertainment companies entering Japan, character-IP and publishing-partner research, and AI-adoption strategy — decision-ready reports.">ゲーム・エンタメ企業の日本進出に向けたユーザー・競合・トレンド調査、キャラクターIP・パブリッシングパートナーのリサーチ、AI導入戦略まで。判断可能なレポートで意思決定を支援します。</p><div class="tools">市場調査 · 競合分析 · 参入戦略 · IPリサーチ</div></div>
       </div>
     </div>
   </div>
@@ -368,7 +387,8 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
   <div class="works">
     <article class="work rv"><span class="cat">Cosmetics · Cross-border</span><h3 data-ko="일본 코스메 브랜드의 한국 Z세대 런칭" data-en="JP cosmetics brand — Korea Gen-Z launch">日本コスメブランドの韓国Z世代ローンチ</h3><p data-ko="현지 크리에이터 캐스팅과 문화 맥락을 반영한 로컬라이즈로 첫 캠페인을 설계." data-en="Local creator casting and culturally-tuned localization for the debut campaign.">現地クリエイターキャスティングと文化文脈を踏まえたローカライズで初回キャンペーンを設計。</p><div class="res" data-ko="목표 리치 3배 초과 달성" data-en="3× the reach target">目標リーチ3倍超を達成</div></article>
     <article class="work rv"><span class="cat">Trading · Automation</span><h3 data-ko="영업 사무의 RPA 자동화" data-en="Sales back-office RPA">営業事務のRPA自動化</h3><p data-ko="견적·보고서 작성 등 반복 업무를 생성AI×RPA로 자동화. PoC부터 운용 정착까지 동반." data-en="Quotes and reports automated with gen-AI × RPA — from PoC to adoption.">見積・レポート作成などの反復業務を生成AI×RPAで自動化。PoCから運用定着まで伴走。</p><div class="res" data-ko="월 120시간 삭감" data-en="120 hours saved / month">月120時間を削減</div></article>
-    <article class="work rv"><span class="cat">Manufacturing · Education</span><h3 data-ko="대기업 생성AI 사내연수 도입" data-en="Enterprise gen-AI training">大手企業の生成AI社内研修</h3><p data-ko="경영층 세션부터 현장 프롬프트 연수까지 계층별 프로그램을 설계·실시." data-en="Layered programs from executive sessions to hands-on prompt training.">経営層セッションから現場プロンプト研修まで、階層別プログラムを設計・実施。</p><div class="res" data-ko="수강 만족도 96%" data-en="96% satisfaction">受講満足度96%</div></article>
+    <article class="work rv"><span class="cat">Game · Market Research</span><h3 data-ko="대형 게임사의 일본 시장조사" data-en="Japan market research for a major game company">大手ゲーム会社の日本市場調査</h3><p data-ko="일본 시장의 유저·경쟁·트렌드 조사를 수행. 조사 설계부터 리포팅까지 일기통관으로 담당." data-en="User, competitor and trend research for the Japanese market — from research design to reporting.">日本市場のユーザー・競合・トレンド調査を遂行。調査設計からレポーティングまで一気通貫で担当。</p><div class="res" data-ko="업무 100% 완수" data-en="Delivered 100%">業務を100%完遂</div></article>
+    <article class="work rv"><span class="cat">Cosmetics · Joint Consulting</span><h3 data-ko="한국 화장품 기업의 일본 캐릭터 사업" data-en="JP character business for a Korean cosmetics company">韓国コスメ企業の日本キャラクター事業</h3><p data-ko="일본 캐릭터 IP를 활용한 상품·프로모션 전개를 조인트 컨설팅. 시장조사에서 파트너 연계까지 지원." data-en="Joint consulting on character-IP products and promotion in Japan — from market research to partner alliances.">日本キャラクターIPを活用した商品・プロモーション展開をジョイントコンサルティング。市場調査からパートナー連携まで支援。</p><div class="res" data-ko="조인트 컨설팅 수행" data-en="Joint consulting engagement">ジョイントコンサルティングを遂行</div></article>
     <article class="work rv"><span class="cat">Own Product</span><h3 data-ko="netmaru — 100% AI 바이브코딩 개발" data-en="netmaru — 100% AI vibe-coded">netmaru — 100% AIバイブコーディング開発</h3><p data-ko="기획·디자인·개발·운영을 소수 정예×AI로. 자사 프로덕트로 AI 실행력을 증명." data-en="Planning, design, dev and ops by a tiny team × AI — proof of our AI execution.">企画・デザイン・開発・運営を少数精鋭×AIで。自社プロダクトでAI実行力を証明。</p><div class="res" data-ko="개발 기간 단축을 실증" data-en="Radically shorter build time">開発期間の大幅短縮を実証</div></article>
   </div>
 </div></section>
@@ -380,10 +400,10 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
     <h2 data-ko="제일선에서 실행해 온, 프로페셔널." data-en="Professionals from the front line.">第一線で実装してきた、プロフェッショナル。</h2>
   </div>
   <div class="members">
-    <div class="member rv"><div class="avatar">K</div><h3>Kim ─ CEO</h3><div class="role">Founder / Strategy</div><p data-ko="한일 마케팅 15년. 브랜드 전략과 크로스보더를 총괄." data-en="15 yrs in KR–JP marketing. Leads strategy and cross-border.">日韓マーケティング15年。ブランド戦略とクロスボーダーを統括。</p></div>
-    <div class="member rv"><div class="avatar">Y</div><h3>Yuki ─ Creative</h3><div class="role">Creative Director</div><p data-ko="숏폼·SNS 크리에이티브 총괄. Z세대 당사자 시선의 기획." data-en="Leads short-form/SNS creative with a native Gen-Z eye.">ショート動画・SNSクリエイティブ統括。Z世代当事者視点の企画。</p></div>
+    <div class="member rv"><div class="avatar">L</div><h3>H. LEE ─ CEO</h3><div class="role">Founder / Strategy</div><p data-ko="한일 마케팅 15년. 브랜드 전략과 크로스보더를 총괄." data-en="15 yrs in KR–JP marketing. Leads strategy and cross-border.">日韓マーケティング15年。ブランド戦略とクロスボーダーを統括。</p></div>
+    <div class="member rv"><div class="avatar">K</div><h3>H. KIM ─ DIRECTER</h3><div class="role">Creative Director</div><p data-ko="숏폼·SNS 크리에이티브 총괄. Z세대 당사자 시선의 기획." data-en="Leads short-form/SNS creative with a native Gen-Z eye.">ショート動画・SNSクリエイティブ統括。Z世代当事者視点の企画。</p></div>
     <div class="member rv"><div class="avatar">J</div><h3>Jun ─ AI Lead</h3><div class="role">AI Engineering</div><p data-ko="생성AI·RPA 구현 리드. netmaru를 100% AI로 개발." data-en="Leads gen-AI/RPA builds. Built netmaru 100% with AI.">生成AI・RPA実装リード。netmaruを100% AIで開発。</p></div>
-    <div class="member rv"><div class="avatar">S</div><h3>Sora ─ Producer</h3><div class="role">Account / Education</div><p data-ko="캠페인 운용과 AI 연수 프로그램 설계를 담당." data-en="Runs campaign ops and designs AI training programs.">キャンペーン運用とAI研修プログラム設計を担当。</p></div>
+    <div class="member rv"><div class="avatar">S</div><h3>Sora ─ Producer</h3><div class="role">Account / Education</div><p data-ko="캠페인 운용과 시장조사·컨설팅을 담당." data-en="Runs campaign ops, market research and consulting.">キャンペーン運用と市場調査・コンサルティングを担当。</p></div>
   </div>
 </div></section>
 
@@ -395,7 +415,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
     <a class="news-item rv" href="#"><span class="dt">2026.07.01</span><span class="cat">AI</span><strong data-ko="생성AI 업무자동화(RPA) 도입 지원 서비스 개시" data-en="Launched gen-AI office automation (RPA) support">生成AIによる業務自動化（RPA）導入支援を開始</strong><span class="arr">→</span></a>
     <a class="news-item rv" href="#"><span class="dt">2026.06.20</span><span class="cat">netmaru</span><strong data-ko="『netmaru』 제공 에리어 확대" data-en="'netmaru' expands coverage">『netmaru』提供エリアを拡大</strong><span class="arr">→</span></a>
     <a class="news-item rv" href="#"><span class="dt">2026.06.02</span><span class="cat">Marketing</span><strong data-ko="한일 Z세대 캠페인 파트너 모집 시작" data-en="Recruiting KR–JP Gen-Z campaign partners">日韓Z世代キャンペーンのパートナー募集を開始</strong><span class="arr">→</span></a>
-    <a class="news-item rv" href="#"><span class="dt">2026.04.10</span><span class="cat">Education</span><strong data-ko="대기업 대상 생성AI 사내연수 프로그램 리뉴얼" data-en="Renewed enterprise gen-AI training program">大手企業向け生成AI社内研修プログラムを刷新</strong><span class="arr">→</span></a>
+    <a class="news-item rv" href="#"><span class="dt">2026.04.10</span><span class="cat">Research</span><strong data-ko="대형 게임사 대상 일본 시장조사 리포트 제공" data-en="Delivered Japan market-research report for a major game company">大手ゲーム会社向け日本市場調査レポートを提供</strong><span class="arr">→</span></a>
     <a class="news-item rv" href="#"><span class="dt">2026.03.03</span><span class="cat">Company</span><strong data-ko="코퍼레이트 사이트 리뉴얼" data-en="Corporate site renewal">コーポレートサイトをリニューアル</strong><span class="arr">→</span></a>
   </div>
 </div></section>
@@ -406,9 +426,9 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
   <div class="wrap">
     <span class="lbl onDark" style="justify-content:center">N° 06 / Contact</span>
     <h2 data-ko='당신의 "전하고 싶다"를, 들려주세요<span class="maru">。</span>' data-en='Tell us what you want to reach<span class="maru">.</span>'>あなたの「届けたい」を、聞かせてください<span class="maru">。</span></h2>
-    <p data-ko="마케팅 상담, AI 도입·교육, 파트너·채용 — 어떤 문의든 환영합니다." data-en="Marketing, AI adoption & training, partners & careers — all inquiries welcome.">マーケティングのご相談、AI導入・教育、パートナー・採用——どんなお問い合わせも歓迎です。</p>
+    <p data-ko="마케팅 상담, AI 도입·게임 컨설팅·시장조사, 파트너·채용 — 어떤 문의든 환영합니다." data-en="Marketing, AI adoption, game consulting & market research, partners & careers — all inquiries welcome.">マーケティングのご相談、AI導入・ゲームコンサルティング・市場調査、パートナー・採用——どんなお問い合わせも歓迎です。</p>
     <div class="acts">
-      <a class="btn-box" href="#" data-ko="문의하기　→" data-en="Contact us　→">お問い合わせ　→</a>
+      <a class="btn-box" href="https://forms.gle/6hkpkuZccVbr6vST6" target="_blank" rel="noopener" data-ko="문의하기　→" data-en="Contact us　→">お問い合わせ　→</a>
       <a class="btn-txt" href="#" data-ko="회사 자료 다운로드 →" data-en="Download company deck →">会社資料ダウンロード →</a>
     </div>
   </div>
@@ -418,7 +438,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 <footer><div class="wrap">
   <div class="ft-grid">
     <div>
-      <div class="brand2">CIZMO<span class="dot">.</span></div>
+      <img src="assets/logo-cizmo.svg" alt="CIZMO" style="height:34px;width:auto">
       <p class="desc">株式会社CIZMO<br>Creator &amp; Influencer for Gen-Z Marketing<br>ENHANCED OPPORTUNITIES<br>Tokyo · Seoul</p>
     </div>
     <div>
@@ -426,7 +446,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
       <ul>
         <li><a href="#business" data-ko="한일 Z세대 마케팅" data-en="KR–JP Gen-Z Marketing">日韓Z世代マーケティング</a></li>
         <li><a href="#business" data-ko="AI개발·업무자동화" data-en="AI Dev & Automation">AI開発・業務自動化（RPA）</a></li>
-        <li><a href="#business" data-ko="AI교육·컨설팅" data-en="AI Education">AI教育・コンサルティング</a></li>
+        <li><a href="#business" data-ko="AI·게임 컨설팅/시장조사" data-en="AI &amp; Game Consulting">AI・ゲームコンサルティング / 市場調査</a></li>
         <li><a href="https://netmaru.com">netmaru</a></li>
       </ul>
     </div>
@@ -437,7 +457,8 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
         <li><a href="#works" data-ko="실적" data-en="Works">実績</a></li>
         <li><a href="#members" data-ko="멤버" data-en="Members">メンバー</a></li>
         <li><a href="#news" data-ko="뉴스" data-en="News">お知らせ</a></li>
-        <li><a href="#contact" data-ko="문의" data-en="Contact">お問い合わせ</a></li>
+        <li><a href="https://forms.gle/6hkpkuZccVbr6vST6" target="_blank" rel="noopener" data-ko="문의" data-en="Contact">お問い合わせ</a></li>
+        <li><a href="#" id="privacyLink" data-ko="개인정보보호방침" data-en="Privacy Policy">個人情報保護方針</a></li>
       </ul>
     </div>
   </div>
@@ -467,6 +488,79 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 (function(){
   var io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
   document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+</script>
+
+<!-- ============ PRIVACY MODAL ============ -->
+<div class="pmodal" id="pmodal" role="dialog" aria-modal="true" aria-labelledby="ppTitle">
+  <div class="ov" data-close></div>
+  <div class="box">
+    <button class="x" data-close aria-label="close">✕</button>
+    <h2 id="ppTitle">個人情報保護方針</h2>
+    <div class="sub">PRIVACY POLICY ｜ 株式会社CIZMO</div>
+    <p>株式会社CIZMO（以下「当社」）は、当社の事業活動において取り扱う個人情報について、その保護の重要性を認識し、以下の方針に基づき適切な取り扱いと保護に努めます。</p>
+    <h3>1. 個人情報の取得について</h3>
+    <p>当社は、適法かつ公正な手段によって個人情報を取得し、利用目的をあらかじめ明示のうえ、その達成に必要な範囲で取得します。</p>
+    <h3>2. 個人情報の利用目的</h3>
+    <ol>
+      <li>お問い合わせ・ご相談への対応のため</li>
+      <li>当社サービスの提供、契約の履行、アフターサービスのため</li>
+      <li>サービス・イベント等に関するご案内のため</li>
+      <li>採用選考および応募者への連絡のため</li>
+      <li>サービス改善・新サービス開発のための分析のため</li>
+    </ol>
+    <h3>3. 個人情報の第三者提供</h3>
+    <p>当社は、法令に基づく場合を除き、ご本人の同意を得ることなく個人情報を第三者に提供いたしません。</p>
+    <h3>4. 個人情報の委託</h3>
+    <p>利用目的の達成に必要な範囲で個人情報の取り扱いを外部に委託する場合は、適切な委託先を選定し、契約等により安全管理を義務付け、必要かつ適切な監督を行います。</p>
+    <h3>5. 安全管理措置</h3>
+    <p>当社は、個人情報の漏えい、滅失またはき損の防止その他の安全管理のために、必要かつ適切な措置を講じます。</p>
+    <h3>6. 開示・訂正・利用停止等の請求</h3>
+    <p>ご本人からの個人情報の開示、訂正、追加、削除、利用停止等のお申し出があった場合は、ご本人であることを確認のうえ、法令に従い速やかに対応いたします。</p>
+    <h3>7. Cookie等の利用について</h3>
+    <p>当社ウェブサイトでは、利便性の向上およびアクセス解析のためにCookieを使用する場合があります。ブラウザの設定によりCookieを無効にすることが可能です。</p>
+    <h3>8. 法令・規範の遵守と継続的改善</h3>
+    <p>当社は、個人情報に関する法令およびその他の規範を遵守するとともに、本方針の内容を継続的に見直し、改善に努めます。</p>
+    <h3>9. お問い合わせ窓口</h3>
+    <p>本方針および個人情報の取り扱いに関するお問い合わせは、当社お問い合わせフォームまでご連絡ください。</p>
+    <p style="margin-top:22px;font-size:12px;color:var(--ink-soft)">制定日：2024年4月1日<br>株式会社CIZMO</p>
+  </div>
+</div>
+
+<script>
+/* ---- privacy modal ---- */
+(function(){
+  var m=document.getElementById('pmodal');
+  document.getElementById('privacyLink').addEventListener('click',function(e){e.preventDefault();m.classList.add('open');document.body.style.overflow='hidden';});
+  m.querySelectorAll('[data-close]').forEach(function(el){el.addEventListener('click',function(){m.classList.remove('open');document.body.style.overflow='';});});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('open')){m.classList.remove('open');document.body.style.overflow='';}});
+})();
+/* ---- notices from Supabase CMS (falls back to static list) ---- */
+(function(){
+  var cfg=window.CIZMO_SUPABASE||{};
+  if(!cfg.url||!cfg.anonKey||!window.supabase) return;
+  var sb=window.supabase.createClient(cfg.url,cfg.anonKey);
+  sb.from('notices').select('*').order('published_on',{ascending:false}).limit(6).then(function(res){
+    if(res.error||!res.data||!res.data.length) return;
+    var list=document.querySelector('.news-list'); if(!list) return;
+    list.innerHTML='';
+    res.data.forEach(function(n){
+      var a=document.createElement('a'); a.className='news-item in'; a.href=n.url||'#';
+      if(n.url) {a.target='_blank'; a.rel='noopener';}
+      var d=(n.published_on||'').replaceAll('-','.');
+      a.innerHTML='<span class="dt"></span><span class="cat"></span><strong></strong><span class="arr">→</span>';
+      a.querySelector('.dt').textContent=d;
+      a.querySelector('.cat').textContent=n.category||'News';
+      var st=a.querySelector('strong');
+      st.textContent=n.title_ja||'';
+      if(n.title_ko) st.dataset.ko=n.title_ko;
+      if(n.title_en) st.dataset.en=n.title_en;
+      st.dataset.ja=n.title_ja||'';
+      list.appendChild(a);
+    });
+    var cur=null; try{cur=localStorage.getItem('cizmo_lang');}catch(e){}
+    if(cur&&cur!=='ja') setLang(cur);
+  });
 })();
 </script>
 </body>

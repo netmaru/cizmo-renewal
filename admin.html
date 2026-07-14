@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CIZMO — お知らせ管理 (CMS)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/supabase-config.js"></script>
+<style>
+:root{--ink:#16263b;--accent:#d7355d;--paper:#fafaf7;--line:#e5e7eb;--soft:#627fa2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans JP",sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;padding:40px 18px}
+.box{max-width:860px;margin:0 auto}
+h1{font-size:22px;font-weight:700;margin-bottom:4px}
+h1 .z{color:var(--accent)}
+.sub{font-size:12px;color:var(--soft);letter-spacing:.08em;margin-bottom:28px}
+.card{background:#fff;border:1px solid var(--line);padding:28px;margin-bottom:22px}
+label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;margin:14px 0 6px;color:var(--soft)}
+input,select,textarea{width:100%;border:1px solid var(--line);background:#fff;padding:11px 12px;font-size:14px;font-family:inherit;border-radius:0}
+input:focus,select:focus{outline:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+button{border:0;background:var(--ink);color:#fff;font-weight:700;font-size:14px;padding:13px 26px;cursor:pointer;margin-top:18px}
+button:hover{background:var(--accent)}
+button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:6px 14px;font-size:12px;margin:0}
+.msg{margin-top:14px;font-size:13px;color:var(--accent);font-weight:700;white-space:pre-wrap}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.12em;color:var(--soft)}
+.warn{background:#fff6e6;border:1px solid #f0d9a8;padding:16px 18px;font-size:13px;margin-bottom:22px}
+code{background:#eef1f4;padding:2px 6px;font-size:12px}
+#app{display:none}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>CIZMO<span class="z"> </span>お知らせ管理</h1>
+  <div class="sub">NOTICES CMS ｜ Supabase</div>
+
+  <div id="nocfg" class="warn" style="display:none">
+    <b>Supabase未設定です。</b><br>
+    1) supabase.com でプロジェクト作成 → 2) <code>supabase-setup.sql</code> をSQL Editorで実行 → 3) <code>assets/supabase-config.js</code> に URL と anon key を記入 → 4) Authentication → Users で管理者ユーザー（メール+パスワード）を追加してください。
+  </div>
+
+  <div class="card" id="login" style="display:none">
+    <b>管理者ログイン</b>
+    <label>Email</label><input id="email" type="email" autocomplete="username">
+    <label>Password</label><input id="pw" type="password" autocomplete="current-password">
+    <button id="loginBtn">ログイン</button>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+
+  <div id="app">
+    <div class="card">
+      <b>新規のお知らせ</b>
+      <div class="row">
+        <div><label>公開日</label><input id="f_date" type="date"></div>
+        <div><label>カテゴリ</label><select id="f_cat"><option>News</option><option>Marketing</option><option>AI</option><option>Research</option><option>netmaru</option><option>Company</option></select></div>
+      </div>
+      <label>タイトル（日本語）*</label><input id="f_ja" placeholder="例）新サービスの提供を開始しました">
+      <div class="row">
+        <div><label>タイトル（한국어）</label><input id="f_ko"></div>
+        <div><label>Title (English)</label><input id="f_en"></div>
+      </div>
+      <label>リンクURL（任意）</label><input id="f_url" placeholder="https://…">
+      <button id="addBtn">公開する</button>
+      <button class="ghost" id="logoutBtn" style="float:right;margin-top:18px">ログアウト</button>
+      <div class="msg" id="addMsg"></div>
+    </div>
+
+    <div class="card">
+      <b>公開中のお知らせ</b>
+      <table><thead><tr><th>日付</th><th>カテゴリ</th><th>タイトル</th><th></th></tr></thead><tbody id="rows"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<script>
+var cfg=window.CIZMO_SUPABASE||{};
+var sb=null;
+function el(id){return document.getElementById(id);}
+if(!cfg.url||!cfg.anonKey){ el('nocfg').style.display='block'; }
+else{
+  sb=window.supabase.createClient(cfg.url,cfg.anonKey);
+  init();
+}
+async function init(){
+  var s=await sb.auth.getSession();
+  if(s.data.session){ showApp(); } else { el('login').style.display='block'; }
+  el('loginBtn').onclick=async function(){
+    el('loginMsg').textContent='...';
+    var r=await sb.auth.signInWithPassword({email:el('email').value,password:el('pw').value});
+    if(r.error){ el('loginMsg').textContent='ログイン失敗: '+r.error.message; return; }
+    el('login').style.display='none'; showApp();
+  };
+}
+async function showApp(){
+  el('app').style.display='block';
+  el('f_date').value=new Date().toISOString().slice(0,10);
+  el('logoutBtn').onclick=async function(){ await sb.auth.signOut(); location.reload(); };
+  el('addBtn').onclick=async function(){
+    var ja=el('f_ja').value.trim();
+    if(!ja){ el('addMsg').textContent='日本語タイトルは必須です'; return; }
+    el('addMsg').textContent='...';
+    var r=await sb.from('notices').insert({
+      published_on:el('f_date').value||null, category:el('f_cat').value,
+      title_ja:ja, title_ko:el('f_ko').value.trim()||null,
+      title_en:el('f_en').value.trim()||null, url:el('f_url').value.trim()||null
+    });
+    if(r.error){ el('addMsg').textContent='エラー: '+r.error.message; return; }
+    el('addMsg').textContent='公開しました ✓'; el('f_ja').value=el('f_ko').value=el('f_en').value=el('f_url').value='';
+    load();
+  };
+  load();
+}
+async function load(){
+  var r=await sb.from('notices').select('*').order('published_on',{ascending:false}).limit(50);
+  var tb=el('rows'); tb.innerHTML='';
+  (r.data||[]).forEach(function(n){
+    var tr=document.createElement('tr');
+    var del=document.createElement('button'); del.className='ghost'; del.textContent='削除';
+    del.onclick=async function(){ if(!confirm('削除しますか？\n'+n.title_ja))return; await sb.from('notices').delete().eq('id',n.id); load(); };
+    tr.innerHTML='<td>'+(n.published_on||'')+'</td><td>'+(n.category||'')+'</td><td></td><td></td>';
+    tr.children[2].textContent=n.title_ja||'';
+    tr.children[3].appendChild(del);
+    tb.appendChild(tr);
+  });
+}
+</script>
+</body>
+</html>
