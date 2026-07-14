@@ -63,6 +63,11 @@ code{background:#eef1f4;padding:2px 6px;font-size:12px}
         <div><label>タイトル（한국어）</label><input id="f_ko"></div>
         <div><label>Title (English)</label><input id="f_en"></div>
       </div>
+      <label>本文（日本語・任意）</label><textarea id="f_bja" rows="5" placeholder="お知らせの本文。空行で段落を分けられます。"></textarea>
+      <div class="row">
+        <div><label>본문（한국어・任意）</label><textarea id="f_bko" rows="4"></textarea></div>
+        <div><label>Body (English, optional)</label><textarea id="f_ben" rows="4"></textarea></div>
+      </div>
       <label>リンクURL（任意）</label><input id="f_url" placeholder="https://…">
       <button id="addBtn">公開する</button>
       <button class="ghost" id="logoutBtn" style="float:right;margin-top:18px">ログアウト</button>
@@ -106,10 +111,12 @@ async function showApp(){
     var r=await sb.from('notices').insert({
       published_on:el('f_date').value||null, category:el('f_cat').value,
       title_ja:ja, title_ko:el('f_ko').value.trim()||null,
-      title_en:el('f_en').value.trim()||null, url:el('f_url').value.trim()||null
+      title_en:el('f_en').value.trim()||null, url:el('f_url').value.trim()||null,
+      body_ja:el('f_bja').value.trim()||null, body_ko:el('f_bko').value.trim()||null,
+      body_en:el('f_ben').value.trim()||null
     });
     if(r.error){ el('addMsg').textContent='エラー: '+r.error.message; return; }
-    el('addMsg').textContent='公開しました ✓'; el('f_ja').value=el('f_ko').value=el('f_en').value=el('f_url').value='';
+    el('addMsg').textContent='公開しました ✓'; el('f_ja').value=el('f_ko').value=el('f_en').value=el('f_url').value=el('f_bja').value=el('f_bko').value=el('f_ben').value='';
     load();
   };
   load();
@@ -122,6 +129,7 @@ async function load(){
     var del=document.createElement('button'); del.className='ghost'; del.textContent='削除';
     del.onclick=async function(){ if(!confirm('削除しますか？\n'+n.title_ja))return; await sb.from('notices').delete().eq('id',n.id); load(); };
     tr.innerHTML='<td>'+(n.published_on||'')+'</td><td>'+(n.category||'')+'</td><td></td><td></td>';
+    if(n.body_ja||n.body_ko||n.body_en){ tr.children[1].innerHTML+=' <span style="color:#2e8b57;font-weight:700">·本文</span>'; }
     tr.children[2].textContent=n.title_ja||'';
     tr.children[3].appendChild(del);
     tb.appendChild(tr);

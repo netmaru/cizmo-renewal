@@ -7,6 +7,9 @@ create table if not exists public.notices (
   title_ko text,
   title_en text,
   url text,
+  body_ja text,
+  body_ko text,
+  body_en text,
   created_at timestamptz not null default now()
 );
 

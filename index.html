@@ -588,6 +588,18 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
   </div>
 </div>
 
+<!-- ============ NOTICE MODAL ============ -->
+<div class="pmodal" id="nmodal" role="dialog" aria-modal="true">
+  <div class="ov" data-nclose></div>
+  <div class="box">
+    <button class="x" data-nclose aria-label="close">✕</button>
+    <div class="sub" id="nmodalMeta" style="margin-bottom:14px"></div>
+    <h2 id="nmodalTitle" style="margin-bottom:20px"></h2>
+    <div id="nmodalBody" style="font-size:14.5px;line-height:2.1;color:var(--ink-2);white-space:pre-line"></div>
+    <div id="nmodalLink" style="margin-top:26px"></div>
+  </div>
+</div>
+
 <script>
 /* ---- privacy modal ---- */
 (function(){
@@ -595,6 +607,26 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
   document.getElementById('privacyLink').addEventListener('click',function(e){e.preventDefault();m.classList.add('open');document.body.style.overflow='hidden';});
   m.querySelectorAll('[data-close]').forEach(function(el){el.addEventListener('click',function(){m.classList.remove('open');document.body.style.overflow='';});});
   addEventListener('keydown',function(e){if(e.key==='Escape'&&m.classList.contains('open')){m.classList.remove('open');document.body.style.overflow='';}});
+})();
+/* ---- notice detail modal ---- */
+(function(){
+  var m=document.getElementById('nmodal');
+  function close(){ m.classList.remove('open'); document.body.style.overflow=''; }
+  m.querySelectorAll('[data-nclose]').forEach(function(el){ el.addEventListener('click', close); });
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&m.classList.contains('open')) close(); });
+  window.openNotice=function(n){
+    var l='ja'; try{ l=localStorage.getItem('cizmo_lang')||'ja'; }catch(e){}
+    var title=n['title_'+l]||n.title_ja||'';
+    var body=n['body_'+l]||n.body_ja||'';
+    document.getElementById('nmodalMeta').textContent=((n.published_on||'').replaceAll('-','.'))+'　｜　'+(n.category||'News');
+    document.getElementById('nmodalTitle').textContent=title;
+    document.getElementById('nmodalBody').textContent=body;
+    var lk=document.getElementById('nmodalLink'); lk.innerHTML='';
+    if(n.url){ var a=document.createElement('a'); a.href=n.url; a.target='_blank'; a.rel='noopener';
+      a.style.cssText='display:inline-flex;gap:10px;font-weight:700;font-size:13.5px;letter-spacing:.06em;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:6px';
+      a.textContent=(l==='ko'?'관련 링크를 보다 →':l==='en'?'Open link →':'関連リンクを見る →'); lk.appendChild(a); }
+    m.classList.add('open'); document.body.style.overflow='hidden';
+  };
 })();
 /* ---- notices from Supabase CMS (falls back to static list) ---- */
 function cizmoLoadNotices(){
@@ -606,8 +638,11 @@ function cizmoLoadNotices(){
     var list=document.querySelector('.news-list'); if(!list) return;
     list.innerHTML='';
     res.data.forEach(function(n){
-      var a=document.createElement('a'); a.className='news-item in'; a.href=n.url||'#';
-      if(n.url) {a.target='_blank'; a.rel='noopener';}
+      var a=document.createElement('a'); a.className='news-item in';
+      var hasBody=!!(n.body_ja||n.body_ko||n.body_en);
+      if(hasBody){ a.href='#'; a.addEventListener('click',function(e){ e.preventDefault(); openNotice(n); }); }
+      else if(n.url){ a.href=n.url; a.target='_blank'; a.rel='noopener'; }
+      else { a.href='#'; }
       var d=(n.published_on||'').replaceAll('-','.');
       a.innerHTML='<span class="dt"></span><span class="cat"></span><strong></strong><span class="arr">→</span>';
       a.querySelector('.dt').textContent=d;
