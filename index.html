@@ -1,325 +1,473 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="株式会社CIZMO｜Creator & Influencer for Gen-Z Marketing ENHANCED OPPORTUNITIES。日韓Z世代マーケティング、アウトドア・スポット共有『netmaru』、AI開発・業務自動化(RPA)、AI教育・コンサルティング。">
-  <title>CIZMO Inc. ｜ Gen-Zと、次の市場をつくる。</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    /* CIZMO overrides on top of the reused design system */
-    .logo{display:flex;align-items:center;font-weight:950;font-size:30px;letter-spacing:-.02em;color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif}
-    .logo .dot{color:var(--red)}
-    .footer-logo-txt{font-weight:950;font-size:30px;color:#fff;letter-spacing:-.02em}
-    .footer-logo-txt .dot{color:var(--pink)}
-    /* language switch — side rail (desktop/tablet) + mega menu (mobile) */
-    .rail-lang{display:grid;background:var(--white);border:1px solid var(--line-strong);border-right:0}
-    .rail-lang button{border:0;background:transparent;font-weight:900;font-size:12px;letter-spacing:.08em;padding:10px 0;cursor:pointer;color:var(--muted)}
-    .rail-lang button+button{border-top:1px solid var(--line)}
-    .rail-lang button.on{background:var(--ink);color:var(--white)}
-    .mega-lang{display:flex;gap:10px;padding-top:18px}
-    .mega-lang button{border:1px solid var(--line);background:var(--white);font-weight:900;font-size:13px;padding:10px 18px;cursor:pointer}
-    .mega-lang button.on{background:var(--ink);color:var(--white);border-color:var(--ink)}
-    
-    /* image / gradient media */
-    .hero-visual{min-height:540px}
-    .hero-img{position:absolute;inset:0;width:100%;height:100%;background-image:url('assets/hero.jpg');background-size:cover;background-position:center}
-    .g-red{background:linear-gradient(135deg,#BC1932,#7c0f22)}
-    .g-blue{background:linear-gradient(135deg,#2144c7,#12246b)}
-    .g-pink{background:linear-gradient(135deg,#FEC6E9,#f588c6)}
-    .g-ink{background:linear-gradient(135deg,#1b1b1b,#080808)}
-    .topic-card .media-bg::after{content:attr(data-k);position:absolute;left:18px;bottom:56px;color:rgba(255,255,255,.9);font-weight:950;font-size:34px;letter-spacing:-.02em}
-    .proposal-note{background:var(--ink);color:#fff;text-align:center;font-size:12px;letter-spacing:.12em;font-weight:800;padding:8px}
-    .proposal-note b{color:var(--pink)}
-    /* hero: fit CIZMO copy (latin + jp) so nothing overflows the column */
-    .hero-layout{grid-template-columns:6fr 6fr}
-    .hero-title h1{font-size:clamp(44px,5.4vw,94px)}
-    /* keep hero side-by-side on tablet widths (861-1180) instead of stacking */
-    @media(max-width:1180px) and (min-width:861px){
-      .hero-layout{grid-template-columns:1fr 1fr}
-      .hero-copy,.hero-visual{grid-column:auto}
-      .hero-title h1{font-size:clamp(40px,5vw,64px)}
-    }
-    @media(max-width:860px){.hero-title h1{font-size:48px}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="株式会社CIZMO｜Creator & Influencer for Gen-Z Marketing ENHANCED OPPORTUNITIES。日韓Z世代マーケティングを主軸に、AI開発・業務自動化、AI教育、自社プロダクト『netmaru』を展開する共創型マーケティングカンパニー。">
+<title>株式会社CIZMO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16263b;        /* deep navy */
+  --ink-2:#344d68;      /* mid navy */
+  --ink-soft:#627fa2;   /* blue gray */
+  --accent:#d7355d;     /* pointed red */
+  --paper:#fafaf7;      /* off white */
+  --paper-2:#fdfdfb;
+  --line:#e5e7eb;
+  --line-dark:rgba(255,255,255,.14);
+  --muted:#9ca3af;
+  --dark:#0e1c2e;       /* hero navy */
+  --serif:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+  --sans:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic Medium",Meiryo,sans-serif;
+  --max:1240px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.9;-webkit-font-smoothing:antialiased;font-weight:400}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 48px}
+.serif{font-family:var(--serif)}
+
+/* ---------- small labels ---------- */
+.lbl{display:inline-flex;align-items:center;gap:14px;font-size:11.5px;letter-spacing:.28em;font-weight:500;color:var(--ink-soft);text-transform:uppercase}
+.lbl::before{content:"";width:34px;height:1px;background:var(--accent)}
+.lbl.onDark{color:rgba(255,255,255,.65)}
+.num-lbl{font-size:11px;letter-spacing:.3em;color:var(--muted);font-weight:500}
+
+/* ---------- proposal ribbon ---------- */
+.ribbon{position:fixed;top:0;left:0;right:0;z-index:61;background:#091223;color:rgba(255,255,255,.75);text-align:center;font-size:11px;letter-spacing:.14em;padding:7px 12px;border-bottom:1px solid var(--line-dark)}
+.ribbon b{color:#ff8aa6;font-weight:700}
+
+/* ---------- header ---------- */
+header{position:fixed;top:36px;left:0;right:0;z-index:60;transition:background .35s ease, box-shadow .35s ease}
+header .in{max-width:1360px;margin:0 auto;padding:0 40px;height:84px;display:flex;align-items:center;gap:34px}
+.brand{font-family:var(--sans);font-weight:700;font-size:22px;letter-spacing:.02em;color:#fff}
+.brand small{display:block;font-size:9.5px;letter-spacing:.3em;color:rgba(255,255,255,.55);font-weight:500;margin-top:2px}
+.brand .dot{color:var(--accent)}
+nav.gnav{margin-left:auto;display:flex;gap:30px;font-size:14px;font-weight:500;color:rgba(255,255,255,.88)}
+nav.gnav a{position:relative;padding:6px 0}
+nav.gnav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+nav.gnav a:hover::after{width:100%}
+.lang{display:flex;gap:2px;border:1px solid var(--line-dark);border-radius:2px;overflow:hidden}
+.lang button{border:0;background:transparent;color:rgba(255,255,255,.6);font-size:11px;font-weight:700;letter-spacing:.08em;padding:7px 11px;cursor:pointer;font-family:var(--sans)}
+.lang button.on{background:#fff;color:var(--ink)}
+header.solid{background:rgba(14,28,46,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line-dark)}
+@media(max-width:900px){nav.gnav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:104vh;background:linear-gradient(168deg,#0d1a2b 0%,#16263b 55%,#1a2d45 100%);color:#fff;overflow:hidden;display:flex;align-items:center}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(1100px 500px at 85% 10%, rgba(98,127,162,.14), transparent 60%),
+  radial-gradient(900px 600px at 10% 90%, rgba(215,53,93,.07), transparent 55%)}
+.hero .lines{position:absolute;inset:0;opacity:.5;pointer-events:none}
+.hero .watermark{position:absolute;right:-40px;bottom:-70px;font-family:var(--serif);font-weight:600;font-size:clamp(140px,21vw,320px);color:rgba(255,255,255,.035);letter-spacing:.01em;line-height:1;user-select:none;pointer-events:none}
+.hero .in{position:relative;z-index:2;width:100%;padding:150px 0 110px}
+.hero .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:64px;flex-wrap:wrap;gap:14px}
+.hero .meta .right{font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.55)}
+.hero .cross{position:absolute;left:48px;top:210px;width:34px;height:34px;opacity:.8}
+.hero .cross::before,.hero .cross::after{content:"";position:absolute;background:var(--accent)}
+.hero .cross::before{left:0;top:0;width:1.5px;height:100%}
+.hero .cross::after{left:0;top:0;width:60%;height:1.5px}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(44px,6.6vw,104px);line-height:1.42;letter-spacing:.02em}
+.hero h1 .maru{color:var(--accent)}
+.hero .lead{margin-top:52px;display:grid;grid-template-columns:60px 1fr;gap:26px;max-width:760px}
+.hero .lead::before{content:"";height:1px;background:rgba(255,255,255,.35);margin-top:16px}
+.hero .lead p{font-size:15.5px;line-height:2.3;color:rgba(255,255,255,.88)}
+.hero .lead b{font-weight:700;color:#fff}
+.hero .acts{margin-top:58px;display:flex;gap:34px;align-items:center;flex-wrap:wrap}
+.btn-box{background:#fff;color:var(--ink);font-weight:700;font-size:14px;padding:19px 38px;display:inline-flex;align-items:center;gap:14px;letter-spacing:.06em;transition:.3s}
+.btn-box:hover{background:var(--accent);color:#fff}
+.btn-txt{color:#fff;font-weight:500;font-size:14px;letter-spacing:.06em;display:inline-flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:6px;transition:.3s}
+.btn-txt:hover{border-color:var(--accent);color:#ffd3de}
+.hero .scroll{position:absolute;right:44px;bottom:44px;writing-mode:vertical-rl;font-size:10px;letter-spacing:.35em;color:rgba(255,255,255,.5)}
+
+/* ---------- section scaffolding ---------- */
+.band{position:relative;background:var(--dark);color:#fff;overflow:hidden;padding:104px 0 96px}
+.band .watermark{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-family:var(--serif);font-weight:600;font-size:clamp(90px,14vw,220px);color:rgba(255,255,255,.045);white-space:nowrap;pointer-events:none}
+.band .in{position:relative;z-index:2}
+.band h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,3.6vw,52px);line-height:1.55;margin-top:26px}
+.band .bsub{margin-top:18px;color:rgba(255,255,255,.72);font-size:15px;max-width:680px;line-height:2.15}
+section.paper{padding:110px 0}
+.sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,3.2vw,46px);line-height:1.6;margin-top:24px;color:var(--ink)}
+.sec-head .ssub{margin-top:16px;color:var(--ink-2);font-size:15px;max-width:720px;line-height:2.15}
+
+/* ---------- philosophy ---------- */
+.phi-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:70px}
+.phi-grid p{font-size:15.5px;line-height:2.35;color:var(--ink-2)}
+.phi-grid p b{color:var(--ink);font-weight:700}
+.phi-note{font-family:var(--serif);color:var(--ink);font-size:19px;letter-spacing:.06em;margin-bottom:18px;display:block}
+
+/* ---------- 4 step process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:80px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.step{padding:46px 34px 52px;border-right:1px solid var(--line);position:relative;transition:background .3s}
+.step:first-child{border-left:1px solid var(--line)}
+.step:hover{background:#fff}
+.step .no{font-family:var(--serif);font-size:15px;color:var(--accent);letter-spacing:.2em}
+.step h3{font-family:var(--serif);font-weight:600;font-size:24px;margin:22px 0 16px;letter-spacing:.04em}
+.step p{font-size:13.5px;line-height:2.1;color:var(--ink-2)}
+.step .en{margin-top:26px;font-size:10.5px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase}
+
+/* ---------- business overview cards ---------- */
+.biz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:66px}
+.biz-card{background:#fff;border:1px solid var(--line);padding:44px 42px;position:relative;transition:.3s}
+.biz-card:hover{box-shadow:0 18px 50px rgba(22,38,59,.09);transform:translateY(-3px)}
+.biz-card .tag{font-size:10.5px;letter-spacing:.26em;color:var(--accent);font-weight:700;text-transform:uppercase}
+.biz-card h3{font-family:var(--serif);font-weight:600;font-size:24.5px;margin:16px 0 14px;line-height:1.6}
+.biz-card p{font-size:14px;line-height:2.15;color:var(--ink-2)}
+.biz-card .tools{margin-top:22px;font-size:12px;color:var(--ink-soft);letter-spacing:.05em}
+.biz-card .idx{position:absolute;right:34px;top:34px;font-family:var(--serif);font-size:15px;color:var(--muted)}
+
+/* ---------- two axes detail (dark) ---------- */
+.axes .axis{border-top:1px solid var(--line-dark);padding:64px 0}
+.axes .axis:last-child{border-bottom:1px solid var(--line-dark)}
+.axis-grid{display:grid;grid-template-columns:340px 1fr;gap:60px}
+.axis-grid .head .k{font-size:10.5px;letter-spacing:.3em;color:#ff8aa6;font-weight:700;text-transform:uppercase}
+.axis-grid .head h3{font-family:var(--serif);font-weight:600;font-size:30px;margin-top:18px;line-height:1.55}
+.axis-grid .head p{margin-top:14px;font-size:13.5px;color:rgba(255,255,255,.6);line-height:2.05}
+.sub-items{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.sub{background:rgba(255,255,255,.04);border:1px solid var(--line-dark);padding:36px 34px;transition:.3s}
+.sub:hover{background:rgba(255,255,255,.07)}
+.sub h4{font-weight:700;font-size:17.5px;letter-spacing:.03em;line-height:1.7}
+.sub p{margin-top:14px;font-size:13.5px;color:rgba(255,255,255,.72);line-height:2.05}
+.sub .tools{margin-top:22px;font-size:11.5px;color:rgba(255,255,255,.45);letter-spacing:.06em}
+@media(max-width:1023px){.axis-grid{grid-template-columns:1fr}.sub-items{grid-template-columns:1fr}}
+
+/* ---------- netmaru product feature ---------- */
+.product{display:grid;grid-template-columns:1.05fr .95fr;gap:0;margin-top:80px;background:#fff;border:1px solid var(--line)}
+.product .txt{padding:64px 58px;display:flex;flex-direction:column;justify-content:center}
+.product .txt .k{font-size:10.5px;letter-spacing:.28em;color:var(--accent);font-weight:700;text-transform:uppercase}
+.product h3{font-family:var(--serif);font-weight:600;font-size:34px;margin:20px 0 4px}
+.product .sub-t{font-size:13px;color:var(--ink-soft);letter-spacing:.12em;margin-bottom:22px}
+.product p{font-size:14.5px;line-height:2.25;color:var(--ink-2)}
+.product p b{color:var(--ink)}
+.product .meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.product .meta span{font-size:12px;border:1px solid var(--line);padding:7px 16px;color:var(--ink-2);letter-spacing:.04em}
+.product .btn-line{margin-top:34px;display:inline-flex;align-items:center;gap:12px;font-weight:700;font-size:13.5px;letter-spacing:.08em;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:7px;align-self:flex-start;transition:.3s}
+.product .btn-line:hover{color:var(--accent);border-color:var(--accent)}
+.product .vis{position:relative;min-height:460px;background:#0d1a2b}
+.product .vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
+.product .vis::after{content:"netmaru";position:absolute;left:26px;bottom:18px;font-family:var(--serif);font-size:15px;letter-spacing:.28em;color:rgba(255,255,255,.85)}
+
+/* ---------- track record ---------- */
+.works{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:66px}
+.work{background:var(--paper-2);padding:44px 42px;transition:.3s}
+.work:hover{background:#fff}
+.work .cat{font-size:10.5px;letter-spacing:.26em;color:var(--ink-soft);text-transform:uppercase;font-weight:700}
+.work h3{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.75;margin:16px 0 12px}
+.work p{font-size:13.5px;color:var(--ink-2);line-height:2.05}
+.work .res{margin-top:20px;font-family:var(--serif);color:var(--accent);font-size:15px;letter-spacing:.04em}
+
+/* ---------- members ---------- */
+.members{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:66px}
+.member{text-align:center;padding:44px 20px 40px;background:#fff;border:1px solid var(--line)}
+.member .avatar{width:92px;height:92px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;font-family:var(--serif);font-size:26px;color:#fff;background:linear-gradient(150deg,var(--ink-2),var(--ink))}
+.member:nth-child(2) .avatar{background:linear-gradient(150deg,var(--accent),#8f2140)}
+.member:nth-child(3) .avatar{background:linear-gradient(150deg,#627fa2,#344d68)}
+.member:nth-child(4) .avatar{background:linear-gradient(150deg,#1a2d45,#0d1a2b)}
+.member h3{font-weight:700;font-size:16.5px;letter-spacing:.06em}
+.member .role{margin-top:6px;font-size:11.5px;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase}
+.member p{margin-top:16px;font-size:12.5px;color:var(--ink-2);line-height:1.95}
+
+/* ---------- news ---------- */
+.news-list{margin-top:56px;border-top:1px solid var(--line)}
+.news-item{display:grid;grid-template-columns:130px 110px 1fr auto;gap:26px;align-items:center;padding:26px 10px;border-bottom:1px solid var(--line);transition:.25s}
+.news-item:hover{background:#fff;padding-left:22px}
+.news-item .dt{font-family:var(--serif);font-size:13.5px;color:var(--ink-soft);letter-spacing:.08em}
+.news-item .cat{font-size:10px;letter-spacing:.2em;font-weight:700;color:var(--accent);border:1px solid currentColor;padding:5px 0;text-align:center;text-transform:uppercase}
+.news-item strong{font-weight:500;font-size:14.5px;color:var(--ink)}
+.news-item .arr{color:var(--muted)}
+@media(max-width:860px){.news-item{grid-template-columns:100px 1fr;grid-template-areas:"dt cat" "tx tx"}.news-item .dt{grid-area:dt}.news-item .cat{grid-area:cat;justify-self:start;padding:5px 14px}.news-item strong{grid-area:tx}.news-item .arr{display:none}}
+
+/* ---------- contact ---------- */
+.contact{position:relative;background:var(--dark);color:#fff;padding:130px 0;overflow:hidden;text-align:center}
+.contact .watermark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--serif);font-size:clamp(100px,16vw,240px);color:rgba(255,255,255,.04);white-space:nowrap;pointer-events:none}
+.contact h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4vw,54px);line-height:1.6;position:relative;z-index:2}
+.contact h2 .maru{color:var(--accent)}
+.contact p{position:relative;z-index:2;margin-top:20px;color:rgba(255,255,255,.7);font-size:14.5px}
+.contact .acts{position:relative;z-index:2;margin-top:46px;display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- footer ---------- */
+footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-size:13.5px}
+.ft-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:50px;padding-bottom:50px;border-bottom:1px solid var(--line-dark)}
+.ft-grid .brand2{font-weight:700;font-size:24px;color:#fff}
+.ft-grid .brand2 .dot{color:var(--accent)}
+.ft-grid .desc{margin-top:18px;font-size:12.5px;line-height:2.1;color:rgba(255,255,255,.5)}
+.ft-grid h5{font-size:11px;letter-spacing:.26em;color:rgba(255,255,255,.4);margin-bottom:18px;text-transform:uppercase;font-weight:500}
+.ft-grid ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.ft-grid a:hover{color:#fff}
+.copyright{padding-top:26px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:11.5px;color:rgba(255,255,255,.35);letter-spacing:.08em}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:none}
+
+@media(max-width:1023px){
+  .wrap{padding:0 26px}
+  .phi-grid{grid-template-columns:1fr;gap:34px}
+  .steps{grid-template-columns:1fr 1fr}
+  .step{border-left:1px solid var(--line);border-top:1px solid var(--line);margin-top:-1px}
+  .biz-grid,.works{grid-template-columns:1fr}
+  .product{grid-template-columns:1fr}
+  .product .vis{min-height:320px}
+  .members{grid-template-columns:1fr 1fr}
+  .hero .cross{display:none}
+}
+@media(max-width:600px){
+  .steps,.members{grid-template-columns:1fr}
+  .hero .in{padding-top:130px}
+  .ft-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
-  <aside class="side-rail">
-    <div class="rail-lang"><button data-lang="ja" class="on">JA</button><button data-lang="ko">KO</button><button data-lang="en">EN</button></div>
-    <a class="rail-link rail-oc" href="#contact"><span data-ko="お問い合わせ" data-en="お問い合わせ">お問い合わせ</span></a>
-    <a class="rail-link rail-request" href="#contact"><span>資料請求</span></a>
-    <button class="rail-top" id="railTop"><span>TOP</span></button>
-  </aside>
+<div class="ribbon">RENEWAL DESIGN PROPOSAL — <b>CIZMO 시안 v2</b> ｜ design &amp; content structure referenced from yourVintage</div>
 
-  <header class="site-top">
-    <div class="utility">
-      <div class="container">
-        <div>Creator &amp; Influencer for Gen-Z Marketing — Enhanced Opportunities</div>
-        <div class="ticker"><div class="ticker-track"><span>日韓Z世代マーケティングの新規パートナー募集中</span><span>アウトドア共有『netmaru』提供エリア拡大</span><span>生成AI業務自動化(RPA)導入支援を開始</span><span>日韓Z世代マーケティングの新規パートナー募集中</span><span>アウトドア共有『netmaru』提供エリア拡大</span><span>生成AI業務自動化(RPA)導入支援を開始</span></div></div>
+<header id="hd">
+  <div class="in">
+    <a class="brand" href="#top">CIZMO<span class="dot">.</span><small>CREATOR &amp; INFLUENCER FOR GEN-Z MARKETING</small></a>
+    <nav class="gnav">
+      <a href="#philosophy" data-ko="우리에 대해" data-en="About">私たちについて</a>
+      <a href="#business" data-ko="사업내용" data-en="Business">事業内容</a>
+      <a href="#works" data-ko="실적" data-en="Works">実績</a>
+      <a href="#members" data-ko="멤버" data-en="Members">メンバー</a>
+      <a href="#news" data-ko="뉴스" data-en="News">お知らせ</a>
+      <a href="#contact" data-ko="문의" data-en="Contact">お問い合わせ</a>
+    </nav>
+    <div class="lang"><button data-lang="ja" class="on">JA</button><button data-lang="ko">KO</button><button data-lang="en">EN</button></div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <svg class="lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="rgba(255,255,255,.05)" stroke-width="1.4" fill="none">
+      <path d="M-60 720 L520 80"/><path d="M240 940 L980 -40"/><path d="M760 960 L1500 20"/>
+      <path d="M1040 900 L1620 260"/><path d="M-80 320 L420 -120"/>
+    </g>
+    <g stroke="rgba(215,53,93,.16)" stroke-width="1.2" fill="none"><path d="M480 900 L1240 -60"/></g>
+  </svg>
+  <div class="watermark">CIZMO</div>
+  <div class="cross"></div>
+  <div class="wrap in">
+    <div class="meta">
+      <span class="lbl onDark" data-ko="주식회사 CIZMO" data-en="CIZMO Inc.">株式会社CIZMO</span>
+      <span class="right">TOKYO&nbsp;&nbsp;·&nbsp;&nbsp;SEOUL&nbsp;&nbsp;/&nbsp;&nbsp;GEN-Z&nbsp;NATIVE</span>
+    </div>
+    <h1 data-ko='"닿았으면"이<br>닿는 세상을, 만든다<span class="maru">。</span>' data-en='Where every voice<br>reaches Gen-Z<span class="maru">.</span>'>「届けたい。」が<br>届く世の中を、作る<span class="maru">。</span></h1>
+    <div class="lead">
+      <p data-ko="기업이 품은 '전하고 싶다'를, Z세대의 '공감'으로 잇는다.<br>한일 Z세대 인사이트를 기점으로 마케팅 전략에서 크리에이티브 제작, AI 구현·운용까지 일기통관으로 담당하는 <b>공창형 Gen-Z 마케팅 컴퍼니</b>입니다." data-en="We connect a brand's 'message' with Gen-Z 'empathy'.<br>Starting from Korea–Japan Gen-Z insight, we handle strategy, creative production, and AI implementation end-to-end — an <b>integrated Gen-Z marketing company</b>.">企業が抱く「届けたい」を、Z世代の「共感」でつなぐ。<br>日韓Z世代のインサイトを起点に、マーケティング戦略からクリエイティブ制作、AI実装・運用までを一気通貫で担う、<b>共創型Gen-Zマーケティングカンパニー</b>です。</p>
+    </div>
+    <div class="acts">
+      <a class="btn-box" href="#philosophy" data-ko="우리에 대해　→" data-en="About us　→">私たちについて　→</a>
+      <a class="btn-txt" href="#contact" data-ko="문의하기 →" data-en="Contact →">お問い合わせ →</a>
+    </div>
+  </div>
+  <div class="scroll">SCROLL</div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<div class="band"><div class="watermark">Philosophy</div><div class="wrap in">
+  <span class="lbl onDark">N° 01 / Philosophy</span>
+  <h2 data-ko="구상에서 실행, 정착까지를<br>하나의 책임으로." data-en="From concept to execution<br>and retention — one responsibility.">構想から実装、定着までを、<br>ひとつの責任で。</h2>
+  <p class="bsub" data-ko="전략만, 제작만, 운용만 — 그런 분단을 하나의 팀으로 끝낸다. CIZMO는 성과에 대한 책임을 함께 짊어지는 파트너입니다." data-en="Strategy only, production only, ops only — we end that fragmentation with one team. CIZMO shares responsibility for outcomes.">戦略だけ、制作だけ、運用だけ——そんな分断を、ひとつのチームで終わらせる。CIZMOは、アウトカムへの責任を一緒に背負うパートナーです。</p>
+</div></div>
+
+<section class="paper" id="philosophy"><div class="wrap">
+  <span class="lbl">— 弊社の流儀</span>
+  <div class="phi-grid">
+    <div class="rv">
+      <span class="phi-note" data-ko="당사자 세대의 시선으로 말한다." data-en="Speak from within the generation.">当事者世代の視点で、語る。</span>
+      <p data-ko="Z세대에게 '통하는' 것은 광고가 아니라 공감입니다. 당사는 한국과 일본, 두 시장의 Z세대 당사자로 구성된 팀이 트렌드의 겉면이 아닌 <b>문화의 맥락</b>까지 읽고, 애매한 감각이 아닌 <b>판단 가능한 언어와 데이터</b>로 전략을 설계합니다." data-en="What works with Gen-Z is empathy, not ads. Our bilingual Gen-Z team in Korea and Japan reads cultural context — not surface trends — and designs strategy in decision-ready language and data.">Z世代に「届く」のは広告ではなく、共感です。私たちは日韓両市場のZ世代当事者で構成されたチームが、トレンドの表層ではなく<b>文化の文脈</b>まで読み解き、曖昧な感覚ではなく<b>判断可能な言葉とデータ</b>で戦略を設計します。</p>
+    </div>
+    <div class="rv">
+      <span class="phi-note" data-ko="AI로, 성과가 나올 때까지 동반한다." data-en="With AI, we run until results.">AIで、成果が出るまで伴走する。</span>
+      <p data-ko="기획서로 끝내지 않습니다. 크리에이터 캐스팅·숏폼 제작에서 생성AI를 활용한 제작·운용 자동화, 사내 정착을 위한 AI 교육까지 — <b>현장에서 성과가 나오는 마지막 한 걸음</b>까지가 저희의 책임 범위입니다." data-en="We don't stop at the deck. From creator casting and short-form production to gen-AI automation and in-house AI training — the last mile where results happen is our responsibility.">企画書で終わらせません。クリエイターキャスティング・ショート動画制作から、生成AIによる制作・運用の自動化、社内定着のためのAI教育まで——<b>現場で成果が出る最後の一歩</b>までが、私たちの責任範囲です。</p>
+    </div>
+  </div>
+
+  <div class="steps">
+    <article class="step rv"><div class="no">01</div><h3 data-ko="구상을 그린다" data-en="Envision">構想を描く</h3><p data-ko="한일 Z세대 인사이트 리서치, 브랜드 과제의 가시화, KPI·로드맵 설계. 경영과 현장 모두에 들어가 판단 가능한 구상으로 정리합니다." data-en="KR–JP Gen-Z insight research, brand-issue mapping, KPI/roadmap design — shaped into decision-ready plans.">日韓Z世代のインサイトリサーチ、ブランド課題の可視化、KPI・ロードマップ設計。経営と現場の両方に入り込み、判断可能な構想に落とし込みます。</p><div class="en">Insight / Strategy</div></article>
+    <article class="step rv"><div class="no">02</div><h3 data-ko="선별한다" data-en="Curate">選び抜く</h3><p data-ko="목적에 맞는 크리에이터·인플루언서 캐스팅, 채널·포맷 선정. 중립적 입장에서 브랜드에 최적인 조합을 선별합니다." data-en="Creator/influencer casting and channel-format selection — the optimal mix, chosen neutrally for the brand.">目的に合うクリエイター・インフルエンサーのキャスティング、チャネル・フォーマット選定。中立の立場で、ブランドに最適な組み合わせを選び抜きます。</p><div class="en">Casting / Planning</div></article>
+    <article class="step rv"><div class="no">03</div><h3 data-ko="구현한다" data-en="Implement">実装する</h3><p data-ko="숏폼·SNS 콘텐츠 제작, 캠페인 실행. 생성AI·자동화를 제작 파이프라인에 심어 속도와 물량을 양립시킵니다." data-en="Short-form and SNS production, campaign execution — with gen-AI built into the pipeline for speed and scale.">ショート動画・SNSコンテンツ制作、キャンペーン実行。生成AI・自動化を制作パイプラインに組み込み、スピードと物量を両立させます。</p><div class="en">Production / AI</div></article>
+    <article class="step rv"><div class="no">04</div><h3 data-ko="정착시킨다" data-en="Retain">定着させる</h3><p data-ko="운용 대행·그로스 개선·리포팅, 그리고 사내 팀이 자립할 수 있는 AI 교육·가이드라인 정비까지 동반합니다." data-en="Ops, growth iteration and reporting — plus AI training and guidelines until the in-house team can run it alone.">運用代行・グロース改善・レポーティング、そして社内チームが自走できるAI教育・ガイドライン整備まで伴走します。</p><div class="en">Ops / Education</div></article>
+  </div>
+</div></section>
+
+<!-- ============ BUSINESS OVERVIEW ============ -->
+<section class="paper" id="business" style="padding-top:0"><div class="wrap">
+  <span class="lbl">N° 02 / Business</span>
+  <div class="sec-head">
+    <h2 data-ko="Z세대 마케팅을 주축으로,<br>2개의 축으로 전 업종에." data-en="Gen-Z marketing at the core,<br>two axes for every industry.">Z世代マーケティングを主軸に、<br>2つの軸で全業種に。</h2>
+    <p class="ssub" data-ko="한일 Z세대 마케팅 사업을 주축으로, AI사업(개발·자동화·교육)을 제2의 주축으로 전개. 마케팅×AI를 조합해 모든 업종·부문의 클라이언트를 지원합니다." data-en="Korea–Japan Gen-Z marketing as our core, and AI (development, automation, education) as the second axis — combined to support clients across all industries.">日韓Z世代マーケティング事業を主軸に、AI事業（開発・自動化・教育）を第2の主軸として展開。マーケティング×AIを掛け合わせ、すべての業種・部門のクライアントをご支援しています。</p>
+  </div>
+  <div class="biz-grid">
+    <article class="biz-card rv"><span class="idx">N°1</span><span class="tag">Core Business</span><h3 data-ko="한일 Z세대 마케팅 / 컨설팅" data-en="KR–JP Gen-Z Marketing / Consulting">日韓Z世代マーケティング / コンサルティング</h3><p data-ko="인플루언서 캐스팅, SNS·숏폼 기획 제작, 크로스보더 캠페인 설계, 브랜드 로컬라이즈까지. 두 시장을 아는 바이링구얼 팀이 전략에서 운용까지 일기통관으로 지원합니다." data-en="Influencer casting, SNS/short-form production, cross-border campaigns and localization — end-to-end by a bilingual team fluent in both markets.">インフルエンサーキャスティング、SNS・ショート動画の企画制作、クロスボーダーキャンペーン設計、ブランドローカライズまで。両市場を知るバイリンガルチームが戦略から運用まで一気通貫でご支援します。</p><div class="tools">TikTok · Instagram · YouTube · X · LINE</div></article>
+    <article class="biz-card rv"><span class="idx">N°2</span><span class="tag">2nd Core</span><h3 data-ko="AI개발 / 업무자동화(RPA)" data-en="AI Development / Automation (RPA)">AI開発 / 業務自動化（RPA）</h3><p data-ko="생성AI 앱·에이전트 개발, RPA에 의한 사무·반복 업무의 자동화, 사내 데이터 활용까지. PoC로 끝내지 않고 현장 정착·운용까지 동반합니다." data-en="Gen-AI apps and agents, RPA for back-office work, and data utilization — from PoC to on-site adoption and operation.">生成AIアプリ・エージェント開発、RPAによる事務・反復業務の自動化、社内データ活用まで。PoCで終わらせず、現場定着・運用まで伴走します。</p><div class="tools">OpenAI · Anthropic · Google AI · Microsoft Copilot</div></article>
+    <article class="biz-card rv"><span class="idx">N°3</span><span class="tag">2nd Core</span><h3 data-ko="AI교육 / 컨설팅" data-en="AI Education / Consulting">AI教育 / コンサルティング</h3><p data-ko="기업용 AI 리터러시 연수, 생성AI 실무 워크숍, 도입 로드맵·사내 가이드라인 설계. '쓸 수 있는 팀'을 만드는 교육으로 AI 투자를 성과로 연결합니다." data-en="Corporate AI-literacy training, hands-on gen-AI workshops, adoption roadmaps and internal guidelines — building teams that actually use AI.">企業向けAIリテラシー研修、生成AI実務ワークショップ、導入ロードマップ・社内ガイドライン設計。「使えるチーム」を育てる教育で、AI投資を成果につなげます。</p><div class="tools">研修 · ワークショップ · 導入コンサルティング</div></article>
+    <article class="biz-card rv"><span class="idx">N°4</span><span class="tag">Own Product</span><h3 data-ko="아웃도어 공유 플랫폼 『netmaru』" data-en="Outdoor Platform 'netmaru'">アウトドア共有『netmaru』</h3><p data-ko="일본의 캠핑장·차박 스팟을 공유하는 커뮤니티 플랫폼. 100% AI 바이브코딩으로 개발·운영하는 자사 서비스로, 당사의 AI 실행력을 증명하는 쇼케이스입니다." data-en="A community platform for Japan's campsites and car-camping spots — our own service, built and run 100% by AI vibe-coding.">日本のキャンプ場・車中泊スポットを共有するコミュニティプラットフォーム。100% AIバイブコーディングで開発・運営する自社サービスであり、当社のAI実行力を証明するショーケースです。</p><div class="tools">netmaru.com · 生成AI / LLM開発</div></article>
+  </div>
+</div></section>
+
+<!-- ============ TWO AXES DETAIL (dark) ============ -->
+<div class="band axes" style="padding:110px 0"><div class="watermark">Business</div><div class="wrap in">
+  <span class="lbl onDark">Two Axes — 2軸の事業構成</span>
+  <h2 style="margin-bottom:64px" data-ko="주축과 제2의 주축으로,<br>인사이트부터 정착까지." data-en="Core and second core —<br>from insight to retention.">主軸と、第2の主軸で、<br>インサイトから定着まで。</h2>
+
+  <div class="axis rv">
+    <div class="axis-grid">
+      <div class="head">
+        <span class="k">Core · Gen-Z Marketing</span>
+        <h3 data-ko="한일 Z세대 마케팅" data-en="KR–JP Gen-Z Marketing">日韓Z世代マーケティング</h3>
+        <p data-ko="인사이트 설계부터 제작·운용까지 일기통관. 한일 크로스보더에 강점." data-en="Insight to production and ops, end-to-end. Strong in KR–JP cross-border.">インサイト設計から制作・運用まで一気通貫。日韓クロスボーダーに強み。</p>
+      </div>
+      <div class="sub-items">
+        <div class="sub"><h4 data-ko="인플루언서 / SNS 마케팅" data-en="Influencer / SNS Marketing">インフルエンサー / SNSマーケティング</h4><p data-ko="목적에 맞는 크리에이터 캐스팅, 숏폼·SNS 콘텐츠의 기획 제작, 캠페인 운용·효과 검증까지. 당사자 세대의 감각과 데이터로 '뜨는' 기획을 만듭니다." data-en="Casting, short-form/SNS production, campaign ops and measurement — ideas that resonate, built on native-generation sense and data.">目的に合うクリエイターキャスティング、ショート動画・SNSコンテンツの企画制作、キャンペーン運用・効果検証まで。当事者世代の感覚とデータで「伸びる」企画を作ります。</p><div class="tools">TikTok · Instagram Reels · YouTube Shorts · X · LINE</div></div>
+        <div class="sub"><h4 data-ko="크로스보더 진출 지원 / 로컬라이즈" data-en="Cross-border Launch / Localization">クロスボーダー進出支援 / ローカライズ</h4><p data-ko="일본 브랜드의 한국 진출, 한국 브랜드의 일본 진출을 쌍방향으로 지원. 언어를 넘어 문화 맥락까지 옮기는 로컬라이즈로 첫 캠페인부터 성과를 냅니다." data-en="Two-way launch support between Japan and Korea. Localization that carries cultural context — delivering results from the very first campaign.">日本ブランドの韓国進出、韓国ブランドの日本進出を双方向で支援。言語を越えて文化の文脈まで運ぶローカライズで、初回キャンペーンから成果を出します。</p><div class="tools">市場調査 · PR · EC連携 · コミュニティ運営</div></div>
       </div>
     </div>
-    <div class="gnb">
-      <div class="container">
-        <a class="logo" href="#top">CIZMO<span class="dot">.</span></a>
-        <nav class="nav">
-          <a href="#business" data-ko="사업내용" data-en="Business">事業内容</a>
-          <a href="#about" data-ko="회사소개" data-en="About">会社概要</a>
-          <a href="#works" data-ko="실적" data-en="Works">実績</a>
-          <a href="#news" data-ko="뉴스" data-en="News">ニュース</a>
-          <a href="#recruit" data-ko="채용" data-en="Recruit">採用</a>
-        </nav>
-        <div class="nav-actions"><a href="#contact" data-ko="문의하기" data-en="Contact">お問い合わせ</a><button id="menuBtn">MENU</button></div>
+  </div>
+
+  <div class="axis rv">
+    <div class="axis-grid">
+      <div class="head">
+        <span class="k">2nd Core · AI</span>
+        <h3 data-ko="AI사업" data-en="AI Business">AI事業</h3>
+        <p data-ko="개발·자동화와 교육의 양륜으로, AI를 '성과가 나오는 도구'로." data-en="Development-automation and education — making AI a tool that delivers.">開発・自動化と教育の両輪で、AIを「成果が出る道具」に。</p>
+      </div>
+      <div class="sub-items">
+        <div class="sub"><h4 data-ko="AI개발 / 업무자동화(RPA)" data-en="AI Dev / Automation (RPA)">AI開発 / 業務自動化（RPA）</h4><p data-ko="생성AI·LLM의 업무 조립, RPA에 의한 반복 업무 자동화, 마케팅 운용의 자동화까지. 요건 정의에서 개발, 운용 정착까지 일기통관으로 지원합니다." data-en="Gen-AI/LLM integration, RPA for repetitive work, and marketing-ops automation — from requirements to development and adoption.">生成AI・LLMの業務組み込み、RPAによる反復業務の自動化、マーケティング運用の自動化まで。要件定義から開発、運用定着まで一気通貫で支援します。</p><div class="tools">OpenAI · Anthropic · Google AI · Microsoft Copilot</div></div>
+        <div class="sub"><h4 data-ko="AI교육 / 도입 컨설팅" data-en="AI Education / Adoption Consulting">AI教育 / 導入コンサルティング</h4><p data-ko="경영층 대상 전략 세션부터 현장의 프롬프트 실무 연수까지 계층별로 설계. 도입 로드맵과 사내 가이드라인을 정비해 '전사가 쓰는' 상태를 만듭니다." data-en="From executive strategy sessions to hands-on prompt training — layered programs, adoption roadmaps and internal guidelines that make AI company-wide.">経営層向け戦略セッションから現場のプロンプト実務研修まで階層別に設計。導入ロードマップと社内ガイドラインを整備し、「全社で使う」状態を作ります。</p><div class="tools">階層別研修 · ガイドライン策定 · 内製化支援</div></div>
       </div>
     </div>
-    <div class="mega" id="mega"><div class="container mega-grid">
-      <a href="#business" class="mega-card"><h3 data-ko="Z세대 마케팅" data-en="Gen-Z Marketing">Z世代マーケティング</h3><p data-ko="한일 크로스보더 인플루언서·SNS 마케팅" data-en="Korea–Japan cross-border influencer & SNS marketing">日韓クロスボーダーのインフルエンサー・SNSマーケティング</p></a>
-      <a href="#netmaru" class="mega-card"><h3>netmaru</h3><p data-ko="캠핑·차박 스팟 공유 플랫폼" data-en="Camping & car-camping spot sharing platform">キャンプ・車中泊スポット共有プラットフォーム</p></a>
-      <a href="#business" class="mega-card"><h3 data-ko="AI개발·RPA" data-en="AI Dev & RPA">AI開発・RPA</h3><p data-ko="생성AI 개발과 업무 자동화 지원" data-en="Generative-AI development & office automation">生成AI開発と業務自動化の導入支援</p></a>
-      <a href="#business" class="mega-card"><h3 data-ko="AI교육·컨설팅" data-en="AI Education">AI教育・コンサル</h3><p data-ko="기업 AI 리터러시 교육과 도입 컨설팅" data-en="Corporate AI literacy & adoption consulting">企業向けAIリテラシー教育と導入コンサル</p></a>
+  </div>
+
+  <div class="product rv" style="border-color:var(--line-dark);background:rgba(255,255,255,.03)">
+    <div class="txt">
+      <span class="k">Own Product — In Operation</span>
+      <h3 style="color:#fff" data-ko="netmaru" data-en="netmaru">netmaru</h3>
+      <div class="sub-t" style="color:rgba(255,255,255,.5)" data-ko="캠핑장·차박 스팟 공유 플랫폼" data-en="Camping &amp; car-camping spot sharing">キャンプ場・車中泊スポット共有プラットフォーム</div>
+      <p style="color:rgba(255,255,255,.75)" data-ko="일본 전국의 캠핑장·차박 스팟을 지도에서 찾고, 리뷰로 공유하는 커뮤니티. <b style='color:#fff'>기획에서 개발·운영까지 100% AI 바이브코딩</b>으로 만들어진 자사 서비스로 — 컨설팅이라는 '무형'의 지견을 누구나 쓸 수 있는 '유형'의 프로덕트로 담아내는, 당사의 사상을 상징하는 사업입니다." data-en="Find and review Japan's campsites and car-camping spots on a map. Built and run 100% by AI vibe-coding — the product that turns our intangible know-how into something everyone can use.">日本全国のキャンプ場・車中泊スポットを地図で探し、レビューで共有するコミュニティ。<b style="color:#fff">企画から開発・運営まで100% AIバイブコーディング</b>で作られた自社サービスであり——コンサルティングという“無形”の知見を、誰もが使える“有形”のプロダクトへ落とし込む、当社の思想を象徴する事業です。</p>
+      <div class="meta"><span style="border-color:var(--line-dark);color:rgba(255,255,255,.7)" data-ko="스팟 검색·지도" data-en="Spot search & map">スポット検索・マップ</span><span style="border-color:var(--line-dark);color:rgba(255,255,255,.7)" data-ko="유저 리뷰" data-en="User reviews">ユーザーレビュー</span><span style="border-color:var(--line-dark);color:rgba(255,255,255,.7)">100% AI Vibe-coding</span></div>
+      <a class="btn-line" style="color:#fff;border-color:rgba(255,255,255,.5)" href="https://netmaru.com" data-ko="netmaru.com 을 보다 →" data-en="Visit netmaru.com →">netmaru.com を見る →</a>
     </div>
-    <div class="container mega-lang"><button data-lang="ja" class="on">日本語</button><button data-lang="ko">한국어</button><button data-lang="en">English</button></div></div>
-  </header>
+    <div class="vis"><img src="assets/biz-camping.jpg" alt="netmaru — 車中泊・キャンプ"></div>
+  </div>
+</div></div>
 
-  <main id="top">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-layout">
-          <div class="hero-copy">
-            <div class="hero-title reveal">
-              <p class="tag">CREATOR &amp; INFLUENCER FOR GEN-Z MARKETING</p>
-              <h1 class="display" data-ko='Gen-Z와,<br><span>다음 시장</span>을,<br>만든다.' data-en='Build the<br><span>next market</span><br>with Gen-Z.'>Gen-Zと、<br><span>次の市場</span>を、<br>つくる。</h1>
-            </div>
-          </div>
-          <div class="hero-visual reveal"><div class="hero-img"></div></div>
-        </div>
-      </div>
-    </section>
+<!-- ============ TRACK RECORD ============ -->
+<section class="paper" id="works"><div class="wrap">
+  <span class="lbl">N° 03 / Track Record</span>
+  <div class="sec-head">
+    <h2 data-ko='무수한 "전하고 싶다"가, 이어져, 형태가 된다.' data-en='Countless "messages", connected and made real.'>無数の「届けたい」が、繋がり、形になる。</h2>
+    <p class="ssub" data-ko="대기업부터 스타트업까지, 업종을 불문하고 마케팅×AI의 통합 지원을 제공. 당사자 세대 팀이 주도하는 4스텝 통합형 체제가 강점입니다." data-en="From enterprises to startups, we provide integrated marketing × AI support — driven by our native-generation team and 4-step model.">大手企業からスタートアップまで、業種を問わずマーケティング×AIの統合支援を提供。当事者世代チームが主導する4ステップ統合型の体制が強みです。</p>
+  </div>
+  <div class="works">
+    <article class="work rv"><span class="cat">Cosmetics · Cross-border</span><h3 data-ko="일본 코스메 브랜드의 한국 Z세대 런칭" data-en="JP cosmetics brand — Korea Gen-Z launch">日本コスメブランドの韓国Z世代ローンチ</h3><p data-ko="현지 크리에이터 캐스팅과 문화 맥락을 반영한 로컬라이즈로 첫 캠페인을 설계." data-en="Local creator casting and culturally-tuned localization for the debut campaign.">現地クリエイターキャスティングと文化文脈を踏まえたローカライズで初回キャンペーンを設計。</p><div class="res" data-ko="목표 리치 3배 초과 달성" data-en="3× the reach target">目標リーチ3倍超を達成</div></article>
+    <article class="work rv"><span class="cat">Trading · Automation</span><h3 data-ko="영업 사무의 RPA 자동화" data-en="Sales back-office RPA">営業事務のRPA自動化</h3><p data-ko="견적·보고서 작성 등 반복 업무를 생성AI×RPA로 자동화. PoC부터 운용 정착까지 동반." data-en="Quotes and reports automated with gen-AI × RPA — from PoC to adoption.">見積・レポート作成などの反復業務を生成AI×RPAで自動化。PoCから運用定着まで伴走。</p><div class="res" data-ko="월 120시간 삭감" data-en="120 hours saved / month">月120時間を削減</div></article>
+    <article class="work rv"><span class="cat">Manufacturing · Education</span><h3 data-ko="대기업 생성AI 사내연수 도입" data-en="Enterprise gen-AI training">大手企業の生成AI社内研修</h3><p data-ko="경영층 세션부터 현장 프롬프트 연수까지 계층별 프로그램을 설계·실시." data-en="Layered programs from executive sessions to hands-on prompt training.">経営層セッションから現場プロンプト研修まで、階層別プログラムを設計・実施。</p><div class="res" data-ko="수강 만족도 96%" data-en="96% satisfaction">受講満足度96%</div></article>
+    <article class="work rv"><span class="cat">Own Product</span><h3 data-ko="netmaru — 100% AI 바이브코딩 개발" data-en="netmaru — 100% AI vibe-coded">netmaru — 100% AIバイブコーディング開発</h3><p data-ko="기획·디자인·개발·운영을 소수 정예×AI로. 자사 프로덕트로 AI 실행력을 증명." data-en="Planning, design, dev and ops by a tiny team × AI — proof of our AI execution.">企画・デザイン・開発・運営を少数精鋭×AIで。自社プロダクトでAI実行力を証明。</p><div class="res" data-ko="개발 기간 단축을 실증" data-en="Radically shorter build time">開発期間の大幅短縮を実証</div></article>
+  </div>
+</div></section>
 
-    <!-- IMPORTANT -->
-    <section class="important"><div class="container important-grid">
-      <div class="important-title"><p class="label">Important</p><h2 style="font-size:28px;margin:10px 0 0" data-ko="중요 공지" data-en="Important News">重要なお知らせ</h2></div>
-      <div class="important-items">
-        <a href="#news"><p class="label" style="color:var(--pink)">2026.7.1</p><p style="font-weight:900;margin:10px 0 0" data-ko="생성AI 업무 자동화(RPA) 도입 지원 서비스 개시" data-en="Launched generative-AI office automation (RPA) support">生成AIによる業務自動化(RPA)導入支援を開始</p></a>
-        <a href="#news"><p class="label" style="color:var(--pink)">2026.6.20</p><p style="font-weight:900;margin:10px 0 0" data-ko="아웃도어 공유 『netmaru』 제공 에리어 확대" data-en="Outdoor-sharing 'netmaru' expands coverage areas">アウトドア共有『netmaru』提供エリアを拡大</p></a>
-        <a href="#news"><p class="label" style="color:var(--pink)">2026.6.2</p><p style="font-weight:900;margin:10px 0 0" data-ko="한일 Z세대 캠페인 파트너 모집 시작" data-en="Now recruiting Korea–Japan Gen-Z campaign partners">日韓Z世代キャンペーンのパートナー募集を開始</p></a>
-      </div>
-    </div></section>
+<!-- ============ MEMBERS ============ -->
+<section class="paper" id="members" style="padding-top:0"><div class="wrap">
+  <span class="lbl">N° 04 / Members</span>
+  <div class="sec-head">
+    <h2 data-ko="제일선에서 실행해 온, 프로페셔널." data-en="Professionals from the front line.">第一線で実装してきた、プロフェッショナル。</h2>
+  </div>
+  <div class="members">
+    <div class="member rv"><div class="avatar">K</div><h3>Kim ─ CEO</h3><div class="role">Founder / Strategy</div><p data-ko="한일 마케팅 15년. 브랜드 전략과 크로스보더를 총괄." data-en="15 yrs in KR–JP marketing. Leads strategy and cross-border.">日韓マーケティング15年。ブランド戦略とクロスボーダーを統括。</p></div>
+    <div class="member rv"><div class="avatar">Y</div><h3>Yuki ─ Creative</h3><div class="role">Creative Director</div><p data-ko="숏폼·SNS 크리에이티브 총괄. Z세대 당사자 시선의 기획." data-en="Leads short-form/SNS creative with a native Gen-Z eye.">ショート動画・SNSクリエイティブ統括。Z世代当事者視点の企画。</p></div>
+    <div class="member rv"><div class="avatar">J</div><h3>Jun ─ AI Lead</h3><div class="role">AI Engineering</div><p data-ko="생성AI·RPA 구현 리드. netmaru를 100% AI로 개발." data-en="Leads gen-AI/RPA builds. Built netmaru 100% with AI.">生成AI・RPA実装リード。netmaruを100% AIで開発。</p></div>
+    <div class="member rv"><div class="avatar">S</div><h3>Sora ─ Producer</h3><div class="role">Account / Education</div><p data-ko="캠페인 운용과 AI 연수 프로그램 설계를 담당." data-en="Runs campaign ops and designs AI training programs.">キャンペーン運用とAI研修プログラム設計を担当。</p></div>
+  </div>
+</div></section>
 
-    <!-- VISION (dark) -->
-    <section class="section oc" id="vision"><div class="container oc-grid">
-      <div class="oc-lead reveal">
-        <p class="label" style="color:white">About CIZMO</p>
-        <h2 class="section-title" style="font-size:64px;margin:24px 0 0" data-ko="Z세대와<br>기업을,<br>잇는다." data-en="We connect<br>Gen-Z and<br>brands.">Z世代と<br>企業を、<br>つなぐ。</h2>
-        <p style="font-weight:800;line-height:2;color:rgba(255,255,255,.82);margin:28px 0 0" data-ko="CIZMO는 한국과 일본의 Z세대 인사이트를 기점으로, 크리에이터·인플루언서·AI·아웃도어까지 사업 영역을 넘나들며 '다음 기회'를 함께 만듭니다." data-en="Starting from Korea–Japan Gen-Z insight, CIZMO crosses creators, influencers, AI and the outdoors to co-create the next opportunity.">CIZMOは、日本と韓国のZ世代インサイトを起点に、クリエイター・インフルエンサー・AI・アウトドアまで領域を越えて「次の機会」を共創します。</p>
-      </div>
-      <div class="oc-cards">
-        <article class="oc-card reveal"><p class="oc-date">01</p><h3 style="font-size:24px;line-height:1.28;margin:28px 0 0" data-ko="한일 크로스보더" data-en="KR–JP Cross-border">日韓クロスボーダー</h3><p class="body-copy" style="margin:18px 0 30px" data-ko="두 시장을 아는 바이링구얼 팀이 문화 맥락까지 설계합니다." data-en="A bilingual team fluent in both markets designs the cultural context.">両市場を知るバイリンガル体制で、文化文脈まで設計。</p><a href="#business" class="btn" data-ko="자세히" data-en="Explore">詳しく</a></article>
-        <article class="oc-card reveal"><p class="oc-date">02</p><h3 style="font-size:24px;line-height:1.28;margin:28px 0 0" data-ko="AI × 크리에이티브" data-en="AI × Creative">AI×クリエイティブ</h3><p class="body-copy" style="margin:18px 0 30px" data-ko="생성AI와 자동화로 기획·제작·운영을 가속합니다." data-en="Generative AI and automation accelerate planning, production and ops.">生成AIと自動化で、企画・制作・運用を高速化。</p><a href="#business" class="btn" data-ko="자세히" data-en="Explore">詳しく</a></article>
-        <article class="oc-card reveal"><p class="oc-date">03</p><h3 style="font-size:24px;line-height:1.28;margin:28px 0 0" data-ko="사업 공창" data-en="Venture Co-creation">事業共創</h3><p class="body-copy" style="margin:18px 0 30px" data-ko="netmaru처럼 자체 서비스를 만들고 함께 키웁니다." data-en="Like netmaru, we build our own services and grow them together.">netmaruのように、自社サービスを立ち上げ共に育てる。</p><a href="#netmaru" class="btn" data-ko="자세히" data-en="Explore">詳しく</a></article>
-      </div>
-    </div></section>
+<!-- ============ NEWS ============ -->
+<section class="paper" id="news" style="padding-top:0"><div class="wrap">
+  <span class="lbl">N° 05 / News</span>
+  <div class="sec-head"><h2 data-ko="최신 소식." data-en="Latest updates.">最新の動き。</h2></div>
+  <div class="news-list">
+    <a class="news-item rv" href="#"><span class="dt">2026.07.01</span><span class="cat">AI</span><strong data-ko="생성AI 업무자동화(RPA) 도입 지원 서비스 개시" data-en="Launched gen-AI office automation (RPA) support">生成AIによる業務自動化（RPA）導入支援を開始</strong><span class="arr">→</span></a>
+    <a class="news-item rv" href="#"><span class="dt">2026.06.20</span><span class="cat">netmaru</span><strong data-ko="『netmaru』 제공 에리어 확대" data-en="'netmaru' expands coverage">『netmaru』提供エリアを拡大</strong><span class="arr">→</span></a>
+    <a class="news-item rv" href="#"><span class="dt">2026.06.02</span><span class="cat">Marketing</span><strong data-ko="한일 Z세대 캠페인 파트너 모집 시작" data-en="Recruiting KR–JP Gen-Z campaign partners">日韓Z世代キャンペーンのパートナー募集を開始</strong><span class="arr">→</span></a>
+    <a class="news-item rv" href="#"><span class="dt">2026.04.10</span><span class="cat">Education</span><strong data-ko="대기업 대상 생성AI 사내연수 프로그램 리뉴얼" data-en="Renewed enterprise gen-AI training program">大手企業向け生成AI社内研修プログラムを刷新</strong><span class="arr">→</span></a>
+    <a class="news-item rv" href="#"><span class="dt">2026.03.03</span><span class="cat">Company</span><strong data-ko="코퍼레이트 사이트 리뉴얼" data-en="Corporate site renewal">コーポレートサイトをリニューアル</strong><span class="arr">→</span></a>
+  </div>
+</div></section>
 
-    <!-- BUSINESS (4 cards) — core -->
-    <section class="section course" id="business"><div class="container">
-      <div class="split-head wide course-head">
-        <div class="reveal"><p class="label" style="color:var(--pink)">Business</p><h2 class="section-title" style="font-size:84px;margin:14px 0 0" data-ko="사업내용" data-en="Business">事業内容</h2></div>
-        <p class="body-copy reveal" style="color:rgba(255,255,255,.65);align-self:end;margin:0" data-ko="Z세대 마케팅부터 아웃도어 플랫폼, AI 개발·자동화, AI 교육까지. 4개 영역을 하나의 팀이 잇습니다." data-en="From Gen-Z marketing to an outdoor platform, AI development & automation, and AI education — one team connects four domains.">Z世代マーケティングから、アウトドアプラットフォーム、AI開発・自動化、AI教育まで。4つの領域を一つのチームがつなぎます。</p>
-      </div>
-      <div class="course-grid">
-        <article class="course-card reveal"><div class="media-bg" style="background-image:url('assets/biz-marketing.jpg')"></div><div class="course-code">MK</div><div class="course-content"><h3 data-ko="Z세대 마케팅·컨설팅" data-en="Gen-Z Marketing & Consulting">Z世代マーケティング・コンサル</h3><a href="#contact">日韓インフルエンサーキャスティング<span>↗</span></a><a href="#contact" data-ko="SNS 운영·숏폼 제작" data-en="SNS ops & short-form production">SNS運用・ショート動画制作<span>↗</span></a><a href="#contact" data-ko="크로스보더 캠페인 설계" data-en="Cross-border campaign design">クロスボーダーキャンペーン設計<span>↗</span></a><a href="#contact" data-ko="브랜드·상품 로컬라이즈" data-en="Brand & product localization">ブランド・商品ローカライズ<span>↗</span></a></div></article>
-        <article class="course-card reveal"><div class="media-bg" style="background-image:url('assets/biz-camping.jpg')"></div><div class="course-code">NM</div><div class="course-content"><h3 data-ko="아웃도어 공유 『netmaru』" data-en="Outdoor Sharing 'netmaru'">アウトドア共有『netmaru』</h3><a href="#netmaru" data-ko="캠핑장·차박 스팟 정보" data-en="Campsite & car-camping spots">キャンプ場・車中泊スポット情報<span>↗</span></a><a href="#netmaru" data-ko="유저 리뷰·커뮤니티" data-en="User reviews & community">ユーザーレビュー・コミュニティ<span>↗</span></a><a href="#netmaru" data-ko="에리어 검색·지도" data-en="Area search & map">エリア検索・マップ<span>↗</span></a><a href="#netmaru" data-ko="100% AI 바이브코딩 사례" data-en="100% AI vibe-coded showcase">100% AIバイブコーディング事例<span>↗</span></a></div></article>
-        <article class="course-card reveal"><div class="media-bg" style="background-image:url('assets/biz-ai.jpg')"></div><div class="course-code">AI</div><div class="course-content"><h3 data-ko="AI개발·업무자동화(RPA)" data-en="AI Dev & Automation (RPA)">AI開発・業務自動化(RPA)</h3><a href="#contact" data-ko="생성AI 앱·에이전트 개발" data-en="Generative-AI apps & agents">生成AIアプリ・エージェント開発<span>↗</span></a><a href="#contact" data-ko="RPA·워크플로 자동화" data-en="RPA & workflow automation">RPA・ワークフロー自動化<span>↗</span></a><a href="#contact" data-ko="사내 데이터 활용·DX" data-en="Data utilization & DX">社内データ活用・DX支援<span>↗</span></a><a href="#contact" data-ko="PoC부터 운용까지" data-en="From PoC to operation">PoCから運用まで伴走<span>↗</span></a></div></article>
-        <article class="course-card reveal"><div class="media-bg" style="background-image:url('assets/biz-edu.jpg')"></div><div class="course-code">ED</div><div class="course-content"><h3 data-ko="AI교육·컨설팅" data-en="AI Education & Consulting">AI教育・コンサルティング</h3><a href="#contact" data-ko="기업 AI 리터러시 연수" data-en="Corporate AI literacy training">企業向けAIリテラシー研修<span>↗</span></a><a href="#contact" data-ko="생성AI 실무 워크숍" data-en="Hands-on gen-AI workshops">生成AI実務ワークショップ<span>↗</span></a><a href="#contact" data-ko="AI 도입 로드맵 설계" data-en="AI adoption roadmap">AI導入ロードマップ設計<span>↗</span></a><a href="#contact" data-ko="사내 가이드라인 정비" data-en="In-house guideline design">社内ガイドライン整備<span>↗</span></a></div></article>
-      </div>
-    </div></section>
-
-    <!-- STRENGTHS -->
-    <section class="section" id="strengths"><div class="container">
-      <div class="split-head wide feature-intro">
-        <div class="reveal"><p class="label">Strengths</p><h2 class="section-title" style="font-size:66px;margin:14px 0 0" data-ko="CIZMO가 선택되는 이유" data-en="Why CIZMO">CIZMOが選ばれる理由</h2></div>
-        <div class="panel card-pad reveal"><p class="body-copy" style="margin:0" data-ko="시장·크리에이티브·AI를 한 팀에서. 인사이트 설계부터 실행·자동화·검증까지 원스톱으로 함께합니다." data-en="Market, creative and AI in one team — from insight to execution, automation and measurement, all in one stop.">市場・クリエイティブ・AIを一つのチームで。インサイト設計から実行・自動化・検証まで、ワンストップで伴走します。</p></div>
-      </div>
-      <div class="feature-grid">
-        <article class="feature-card reveal"><h3 data-ko="한일 바이링구얼 체제" data-en="Bilingual KR–JP Team">日韓バイリンガル体制</h3><p data-ko="두 시장의 언어·문화·트렌드를 아는 팀이 직접 실행합니다." data-en="A team fluent in both markets' language, culture and trends executes directly.">両市場の言語・文化・トレンドを知るチームが実行。</p><div class="feature-num">01</div></article>
-        <article class="feature-card reveal"><h3 data-ko="Z세대 인사이트" data-en="Gen-Z Insight">Z世代インサイト</h3><p data-ko="당사자 세대의 시선으로 '뜨는' 기획을 만듭니다." data-en="We craft ideas that resonate, from the perspective of the generation itself.">当事者世代の視点で、伸びる企画を設計。</p><div class="feature-num">02</div></article>
-        <article class="feature-card reveal"><h3 data-ko="AI 드리븐" data-en="AI-driven">AIドリブン</h3><p data-ko="생성AI·자동화로 제작과 운용을 빠르고 저렴하게." data-en="Generative AI and automation make production and ops faster and leaner.">生成AI・自動化で、制作と運用を速く・軽く。</p><div class="feature-num">03</div></article>
-        <article class="feature-card reveal"><h3 data-ko="원스톱 공창" data-en="One-stop Co-creation">ワンストップ共創</h3><p data-ko="전략부터 개발·서비스 운영까지 하나의 창구로." data-en="From strategy to development and service operation, through a single window.">戦略から開発・サービス運用まで一つの窓口で。</p><div class="feature-num">04</div></article>
-      </div>
-    </div></section>
-
-    <!-- WORKS (topics) -->
-    <section class="section" id="works"><div class="container split-head">
-      <div class="reveal"><p class="label">Works</p><h2 class="section-title" style="font-size:46px;margin:12px 0 0" data-ko="실적·사례" data-en="Works & Cases">実績・事例</h2></div>
-      <div class="topic-grid reveal">
-        <a href="#contact" class="topic-card"><div class="media-bg g-red" data-k="MZ"></div><h3 data-ko="일본 코스메 브랜드 한국 Z세대 런칭" data-en="JP cosmetics brand — Korea Gen-Z launch">日本コスメの韓国Z世代ローンチ</h3></a>
-        <a href="#netmaru" class="topic-card"><div class="media-bg g-blue" data-k="NM"></div><h3 data-ko="netmaru 100% AI 바이브코딩 개발" data-en="netmaru — 100% AI vibe-coded build">netmaru 100% AIバイブコーディング</h3></a>
-        <a href="#contact" class="topic-card"><div class="media-bg g-ink" data-k="AI"></div><h3 data-ko="영업 업무 RPA로 월 120시간 절감" data-en="Sales RPA — 120 hrs/month saved">営業業務のRPAで月120時間削減</h3></a>
-        <a href="#contact" class="topic-card"><div class="media-bg g-pink" data-k="ED"></div><h3 data-ko="대기업 생성AI 사내연수 도입" data-en="Enterprise gen-AI training rollout">大手企業の生成AI社内研修</h3></a>
-      </div>
-    </div></section>
-
-
-    <!-- NETMARU (abroad layout) -->
-    <section class="section abroad" id="netmaru"><div class="container abroad-grid">
-      <div class="abroad-main reveal"><div class="abroad-photo" style="background-image:url('assets/biz-camping.jpg');background-size:cover;background-position:center"></div><div class="abroad-copy"><p class="label">Product — netmaru</p><h2 style="font-size:54px;line-height:.98;margin:18px 0 0;font-weight:950" data-ko="캠핑·차박을,<br>지도 위에서." data-en="Camping & car-camping,<br>on the map.">キャンプ・車中泊を、<br>地図の上で。</h2><p class="body-copy" style="margin:28px 0 0" data-ko="일본의 캠핑장·차박 스팟을 공유하는 커뮤니티 플랫폼. 100% AI 바이브코딩으로 제작된 자사 서비스 사례입니다." data-en="A community platform for sharing Japan's campsites and car-camping spots — our own service, built 100% by AI vibe-coding.">日本のキャンプ場・車中泊スポットを共有するコミュニティ。100% AIバイブコーディングで制作した自社サービス事例です。</p></div></div>
-      <div class="abroad-links reveal">
-        <a href="https://netmaru.com" data-ko="에리어에서 스팟 찾기" data-en="Find spots by area">エリアからスポットを探す<span>↗</span></a>
-        <a href="https://netmaru.com" data-ko="차박 스팟 특집" data-en="Car-camping spots">車中泊スポット特集<span>↗</span></a>
-        <a href="https://netmaru.com" data-ko="유저 리뷰·평점" data-en="User reviews & ratings">ユーザーレビュー・評価<span>↗</span></a>
-        <a href="https://netmaru.com" data-ko="netmaru.com 방문" data-en="Visit netmaru.com">netmaru.com を見る<span>↗</span></a>
-      </div>
-    </div></section>
-
-    <!-- VOICE -->
-    <section class="section voice"><div class="container voice-grid">
-      <div class="reveal"><p class="label">Voice</p><h2 style="font-size:44px;line-height:1.08;margin:12px 0 0;font-weight:950" data-ko="클라이언트의 목소리" data-en="Client Voices">クライアントの声</h2></div>
-      <div class="voice-cards reveal">
-        <article class="voice-card"><blockquote data-ko="“한국 진출 첫 캠페인에서 목표 리치를 3배 초과 달성. 문화 맥락까지 짚어줬다.”" data-en="&ldquo;Our first Korea campaign beat the reach goal 3×, with the cultural nuance nailed.&rdquo;">“韓国進出の初キャンペーンで目標リーチを3倍超。文化文脈まで的確だった。”</blockquote><p data-ko="화장품 브랜드 / 마케팅 담당" data-en="Cosmetics brand / Marketing">コスメブランド / マーケ担当</p></article>
-        <article class="voice-card"><blockquote data-ko="“RPA 도입으로 반복 업무가 사라졌다. PoC부터 운용까지 함께해 안심.”" data-en="&ldquo;RPA erased our repetitive work. They walked with us from PoC to operation.&rdquo;">“RPA導入で反復業務が消えた。PoCから運用まで伴走で安心。”</blockquote><p data-ko="상사 / 정보시스템부" data-en="Trading firm / IT dept.">商社 / 情報システム部</p></article>
-        <article class="voice-card"><blockquote data-ko="“생성AI 사내연수 후, 현장에서 프롬프트가 자연스럽게 오간다.”" data-en="&ldquo;After the gen-AI training, prompts now flow naturally on the floor.&rdquo;">“生成AI研修の後、現場で自然にプロンプトが飛び交うように。”</blockquote><p data-ko="제조업 / 인사부" data-en="Manufacturer / HR">製造業 / 人事部</p></article>
-        <article class="voice-card"><blockquote data-ko="“netmaru로 차박 스팟을 쉽게 찾는다. UI가 젊고 쓰기 편하다.”" data-en="&ldquo;netmaru makes finding car-camping spots easy — young, usable UI.&rdquo;">“netmaruで車中泊スポットが探しやすい。若くて使いやすいUI。”</blockquote><p data-ko="netmaru 유저" data-en="netmaru user">netmaru ユーザー</p></article>
-      </div>
-    </div></section>
-
-    <!-- NEWS -->
-    <section class="section" id="news"><div class="container news-grid">
-      <div class="reveal"><p class="label">News</p><h2 class="section-title" style="font-size:58px;margin:12px 0 0" data-ko="뉴스" data-en="News">ニュース</h2><a class="news-all btn" href="#" data-ko="전체 보기" data-en="View all">すべて見る</a></div>
-      <div class="news-list reveal">
-        <a href="#" class="news-item"><span class="news-date">2026.7.1</span><span class="news-cat">ai</span><strong data-ko="생성AI 업무자동화(RPA) 도입 지원 서비스 개시" data-en="Launched generative-AI office automation (RPA) support">生成AIによる業務自動化(RPA)導入支援を開始</strong><span>↗</span></a>
-        <a href="#" class="news-item"><span class="news-date">2026.6.20</span><span class="news-cat">netmaru</span><strong data-ko="아웃도어 공유 『netmaru』 제공 에리어 확대" data-en="'netmaru' expands coverage areas">アウトドア共有『netmaru』提供エリアを拡大</strong><span>↗</span></a>
-        <a href="#" class="news-item"><span class="news-date">2026.6.2</span><span class="news-cat">marketing</span><strong data-ko="한일 Z세대 캠페인 파트너 모집 시작" data-en="Recruiting Korea–Japan Gen-Z campaign partners">日韓Z世代キャンペーンのパートナー募集を開始</strong><span>↗</span></a>
-        <a href="#" class="news-item"><span class="news-date">2026.4.10</span><span class="news-cat">education</span><strong data-ko="대기업 대상 생성AI 사내연수 프로그램 리뉴얼" data-en="Renewed enterprise gen-AI training program">大手企業向け生成AI社内研修プログラムを刷新</strong><span>↗</span></a>
-        <a href="#" class="news-item"><span class="news-date">2026.3.3</span><span class="news-cat">company</span><strong data-ko="주식회사 CIZMO 코퍼레이트 사이트 리뉴얼" data-en="CIZMO Inc. corporate site renewal">株式会社CIZMO コーポレートサイトをリニューアル</strong><span>↗</span></a>
-      </div>
-    </div></section>
-
-    <!-- CONTACT CARDS (admission) -->
-    <section class="section admission" id="contact"><div class="container admission-grid">
-      <article class="admission-card "><p class="label">Marketing</p><h2 data-ko="마케팅 상담" data-en="Marketing">マーケティング相談</h2><p data-ko="한일 Z세대 캠페인·인플루언서·SNS 운영 상담." data-en="Korea–Japan Gen-Z campaigns, influencers and SNS ops.">日韓Z世代キャンペーン・インフルエンサー・SNS運用のご相談。</p><a class="btn btn-red" href="#" data-ko="상담하기" data-en="Get in touch">相談する</a></article>
-      <article class="admission-card blue"><p class="label" style="color:rgba(255,255,255,.72)">AI &amp; DX</p><h2 data-ko="AI 도입 상담" data-en="AI Adoption">AI導入相談</h2><p data-ko="생성AI 개발·RPA 자동화·AI 교육 도입 문의." data-en="Generative-AI dev, RPA automation and AI training.">生成AI開発・RPA自動化・AI教育の導入について。</p><a class="btn btn-red" href="#" data-ko="상담하기" data-en="Get in touch">相談する</a></article>
-      <article class="admission-card "><p class="label">Partner</p><h2 data-ko="채용·파트너" data-en="Partner">採用・パートナー</h2><p data-ko="크리에이터·파트너·채용 관련 문의를 받습니다." data-en="For creators, partners and hiring inquiries.">クリエイター・パートナー・採用に関するお問い合わせ。</p><a class="btn btn-red" href="#recruit" data-ko="문의하기" data-en="Contact">問い合わせる</a></article>
-    </div></section>
-
-    <!-- FINAL CTA -->
-    <section class="section final-cta" id="recruit"><div class="container cta-grid">
-      <div class="cta-copy reveal"><h2 class="section-title" style="font-size:64px;margin:0" data-ko="Gen-Z의 다음을,<br>함께 만들자." data-en="Let&rsquo;s build<br>what&rsquo;s next for Gen-Z.">Gen-Zの次を、<br>一緒につくろう。</h2></div>
-      <div class="cta-actions reveal">
-        <a href="#contact" data-ko="사업 문의" data-en="Business inquiry">事業のお問い合わせ<span>↗</span></a>
-        <a href="#" data-ko="자료 다운로드" data-en="Download deck">会社資料ダウンロード<span>↗</span></a>
-        <a href="#" data-ko="채용 정보" data-en="Careers">採用情報<span>↗</span></a>
-      </div>
-    </div></section>
-  </main>
-
-  <footer class="footer" id="access"><div class="container" style="padding-block:40px">
-    <div class="footer-grid">
-      <div class="footer-cell"><div class="footer-logo-txt">CIZMO<span class="dot">.</span></div><p style="margin:24px 0 0;color:rgba(255,255,255,.65);font-size:14px;font-weight:800;line-height:1.9">株式会社CIZMO<br>Creator &amp; Influencer for Gen-Z Marketing<br>Enhanced Opportunities<br>Tokyo, Japan / Seoul, Korea</p></div>
-      <div class="footer-cell footer-links">
-        <a href="#business" data-ko="사업내용" data-en="Business">事業内容</a>
-        <a href="#business" data-ko="Z세대 마케팅" data-en="Gen-Z Marketing">Z世代マーケティング</a>
-        <a href="#netmaru">netmaru</a>
-        <a href="#business" data-ko="AI개발·RPA" data-en="AI Dev & RPA">AI開発・RPA</a>
-        <a href="#business" data-ko="AI교육" data-en="AI Education">AI教育</a>
-        <a href="#works" data-ko="실적" data-en="Works">実績</a>
-        <a href="#news" data-ko="뉴스" data-en="News">ニュース</a>
-        <a href="#recruit" data-ko="채용" data-en="Recruit">採用</a>
-        <a href="#contact" data-ko="문의" data-en="Contact">お問い合わせ</a>
-      </div>
-      <div class="footer-cell"><p class="label" style="color:rgba(255,255,255,.5)">Official Social Media</p><div class="sns"><span>IG</span><span>X</span><span>YT</span><span>TT</span></div></div>
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="watermark">Contact</div>
+  <div class="wrap">
+    <span class="lbl onDark" style="justify-content:center">N° 06 / Contact</span>
+    <h2 data-ko='당신의 "전하고 싶다"를, 들려주세요<span class="maru">。</span>' data-en='Tell us what you want to reach<span class="maru">.</span>'>あなたの「届けたい」を、聞かせてください<span class="maru">。</span></h2>
+    <p data-ko="마케팅 상담, AI 도입·교육, 파트너·채용 — 어떤 문의든 환영합니다." data-en="Marketing, AI adoption & training, partners & careers — all inquiries welcome.">マーケティングのご相談、AI導入・教育、パートナー・採用——どんなお問い合わせも歓迎です。</p>
+    <div class="acts">
+      <a class="btn-box" href="#" data-ko="문의하기　→" data-en="Contact us　→">お問い合わせ　→</a>
+      <a class="btn-txt" href="#" data-ko="회사 자료 다운로드 →" data-en="Download company deck →">会社資料ダウンロード →</a>
     </div>
-  </div><div class="copyright">Copyright © CIZMO Inc. — Renewal design proposal (시안). Design system reused from client template.</div></footer>
+  </div>
+</section>
 
-  <div class="proposal-note">RENEWAL DESIGN PROPOSAL — <b>CIZMO 시안</b> ｜ 3-language (JA / KO / EN) ｜ structure &amp; design reused from hv-h-jcfl template</div>
+<!-- ============ FOOTER ============ -->
+<footer><div class="wrap">
+  <div class="ft-grid">
+    <div>
+      <div class="brand2">CIZMO<span class="dot">.</span></div>
+      <p class="desc">株式会社CIZMO<br>Creator &amp; Influencer for Gen-Z Marketing<br>ENHANCED OPPORTUNITIES<br>Tokyo · Seoul</p>
+    </div>
+    <div>
+      <h5>Business</h5>
+      <ul>
+        <li><a href="#business" data-ko="한일 Z세대 마케팅" data-en="KR–JP Gen-Z Marketing">日韓Z世代マーケティング</a></li>
+        <li><a href="#business" data-ko="AI개발·업무자동화" data-en="AI Dev & Automation">AI開発・業務自動化（RPA）</a></li>
+        <li><a href="#business" data-ko="AI교육·컨설팅" data-en="AI Education">AI教育・コンサルティング</a></li>
+        <li><a href="https://netmaru.com">netmaru</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#philosophy" data-ko="우리에 대해" data-en="About">私たちについて</a></li>
+        <li><a href="#works" data-ko="실적" data-en="Works">実績</a></li>
+        <li><a href="#members" data-ko="멤버" data-en="Members">メンバー</a></li>
+        <li><a href="#news" data-ko="뉴스" data-en="News">お知らせ</a></li>
+        <li><a href="#contact" data-ko="문의" data-en="Contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright"><span>© CIZMO Inc. All rights reserved.</span><span>Design proposal v2 — referenced from yourVintage</span></div>
+</div></footer>
 
-  <script>
-    // ---- i18n (JA default in markup; KO/EN via data attributes) ----
-    (function(){
-      document.querySelectorAll('[data-ko],[data-en]').forEach(el=>{ el.dataset.ja = el.innerHTML; });
-      window.setLang=function(l){
-        document.documentElement.lang = l;
-        document.querySelectorAll('[data-ja]').forEach(el=>{ var v=el.dataset[l]; if(v!=null&&v!=='') el.innerHTML=v; });
-        document.querySelectorAll('button[data-lang]').forEach(b=>b.classList.toggle('on', b.dataset.lang===l));
-        try{ localStorage.setItem('cizmo_lang', l); }catch(e){}
-      };
-      document.querySelectorAll('button[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-      var saved=null; try{ saved=localStorage.getItem('cizmo_lang'); }catch(e){}
-      if(saved && saved!=='ja') setLang(saved);
-    })();
-
-    const menuBtn=document.getElementById('menuBtn');const mega=document.getElementById('mega');
-    menuBtn.addEventListener('click',()=>mega.classList.toggle('open'));
-    mega.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mega.classList.remove('open')));
-    document.getElementById('railTop')?.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
-
-    if(window.gsap&&window.ScrollTrigger){
-      gsap.registerPlugin(ScrollTrigger);
-      const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const q=(scope,selector)=>Array.from((scope||document).querySelectorAll(selector)).filter(el=>el.offsetParent!==null||el.getClientRects().length);
-      const st=(trigger,start='top 82%')=>({trigger,start,once:true});
-      const from=(targets,vars,trigger,start)=>targets.length&&gsap.from(targets,{...vars,scrollTrigger:st(trigger||targets[0],start)});
-      const textItems=(scope)=>q(scope,'.label, .tag, .section-title, h1, h2, h3, p, .btn, a');
-      if(reduceMotion){
-        gsap.set('.reveal, .hero-img, .media-bg, #strengths .feature-card',{clearProps:'all',opacity:1});
-        gsap.set('#strengths .feature-card',{'--line-x':1,'--line-y':1});
-      }else{
-        const hero=document.querySelector('.hero');
-        if(hero){
-          from(q(hero,'.hero-title .tag, .hero-title h1'),{x:-500,opacity:0,duration:.95,ease:'power3.out',stagger:.14},hero,'top 72%');
-          from(q(hero,'.hero-visual'),{x:500,opacity:0,duration:1.05,ease:'power3.out'},hero,'top 72%');
-          from(q(hero,'.hero-img'),{scale:1.12,duration:1.25,ease:'power2.out'},hero,'top 72%');
-        }
-        const important=document.querySelector('.important');
-        if(important){ from(q(important,'.important-title .label, .important-title h2, .important-items a'),{y:24,opacity:0,duration:.72,ease:'power2.out',stagger:.09},important,'top 86%'); }
-        const vision=document.querySelector('#vision');
-        if(vision){
-          from(textItems(vision.querySelector('.oc-lead')),{y:38,opacity:0,duration:.86,ease:'circ.out',stagger:.08},vision,'top 80%');
-          from(q(vision,'.oc-card'),{y:54,opacity:0,duration:.9,ease:'power3.out',stagger:.12},vision,'top 78%');
-        }
-        const business=document.querySelector('#business');
-        if(business){
-          from(textItems(business.querySelector('.course-head')),{y:-24,opacity:0,duration:.82,ease:'power2.out',stagger:.08},business,'top 76%');
-          from(q(business,'.course-card'),{y:34,opacity:0,duration:.82,ease:'power2.out',stagger:.09},business.querySelector('.course-grid'),'top 82%');
-          from(q(business,'.course-card .media-bg'),{scale:2,yPercent:-8,duration:1.2,ease:'power2.out',stagger:.08},business.querySelector('.course-grid'),'top 82%');
-        }
-        const strengths=document.querySelector('#strengths');
-        if(strengths){
-          from(textItems(strengths.querySelector('.feature-intro')),{y:26,opacity:0,duration:.78,ease:'power2.out',stagger:.075},strengths,'top 78%');
-          gsap.set(q(strengths,'.feature-card'),{'--line-x':0,'--line-y':0});
-          gsap.to(q(strengths,'.feature-card'),{'--line-y':1,duration:.84,ease:'power2.out',stagger:.09,scrollTrigger:st(strengths.querySelector('.feature-grid'),'top 84%')});
-          gsap.to(q(strengths,'.feature-card'),{'--line-x':1,duration:.9,ease:'power2.out',stagger:.09,delay:.16,scrollTrigger:st(strengths.querySelector('.feature-grid'),'top 84%')});
-          q(strengths,'.feature-card').forEach((card,i)=>from(q(card,'h3, p, .feature-num'),{y:22,opacity:0,duration:.72,ease:'power3.out',stagger:.07,delay:i*.045},strengths.querySelector('.feature-grid'),'top 84%'));
-        }
-        const works=document.querySelector('#works');
-        if(works){
-          from(q(works,'.topic-card'),{x:72,opacity:0,duration:.82,ease:'power3.out',stagger:.11},works.querySelector('.topic-grid'),'top 83%');
-          from(q(works,'.topic-card h3'),{y:22,opacity:0,duration:.62,ease:'power2.out',stagger:.09},works.querySelector('.topic-grid'),'top 83%');
-        }
-        const netmaru=document.querySelector('#netmaru');
-        if(netmaru){
-          from(q(netmaru,'.abroad-photo'),{clipPath:'inset(0 100% 0 0)',duration:.95,ease:'power3.out'},netmaru,'top 80%');
-          from(q(netmaru,'.abroad-copy .label, .abroad-copy h2, .abroad-copy p'),{x:30,opacity:0,duration:.72,ease:'power2.out',stagger:.08},netmaru,'top 80%');
-          from(q(netmaru,'.abroad-links a'),{y:24,opacity:0,duration:.7,ease:'power2.out',stagger:.07},netmaru.querySelector('.abroad-links'),'top 84%');
-        }
-        const voice=document.querySelector('.section.voice');
-        if(voice){
-          from(textItems(voice.querySelector('.voice-grid>.reveal')),{x:-26,opacity:0,duration:.76,ease:'power2.out',stagger:.08},voice,'top 80%');
-          from(q(voice,'.voice-card'),{x:(i)=>i%2?-32:32,opacity:0,duration:.78,ease:'power3.out',stagger:.08},voice.querySelector('.voice-cards'),'top 84%');
-        }
-        const news=document.querySelector('#news');
-        if(news){ from(q(news,'.news-item'),{x:38,opacity:0,duration:.64,ease:'power2.out',stagger:.07},news.querySelector('.news-list'),'top 84%'); }
-        const admission=document.querySelector('#contact');
-        if(admission){ from(q(admission,'.admission-card'),{y:30,opacity:0,duration:.78,ease:'power2.out',stagger:.09},admission,'top 84%'); }
-        const request=document.querySelector('#recruit');
-        if(request){
-          from(textItems(request.querySelector('.cta-copy')),{x:-34,opacity:0,duration:.82,ease:'power3.out',stagger:.08},request,'top 84%');
-          from(q(request,'.cta-actions a'),{x:38,opacity:0,duration:.72,ease:'power2.out',stagger:.08},request,'top 84%');
-        }
-      }
-    }
-  </script>
+<script>
+/* ---- i18n ---- */
+(function(){
+  document.querySelectorAll('[data-ko],[data-en]').forEach(el=>{ el.dataset.ja = el.innerHTML; });
+  window.setLang=function(l){
+    document.documentElement.lang=l;
+    document.querySelectorAll('[data-ja]').forEach(el=>{ var v=el.dataset[l]; if(v!=null&&v!=='') el.innerHTML=v; });
+    document.querySelectorAll('button[data-lang]').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+    try{localStorage.setItem('cizmo_lang',l);}catch(e){}
+  };
+  document.querySelectorAll('button[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+  var s=null; try{s=localStorage.getItem('cizmo_lang');}catch(e){}
+  if(s&&s!=='ja') setLang(s);
+})();
+/* ---- header solid on scroll ---- */
+(function(){
+  var hd=document.getElementById('hd');
+  addEventListener('scroll',()=>hd.classList.toggle('solid',scrollY>40),{passive:true});
+})();
+/* ---- reveal ---- */
+(function(){
+  var io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+</script>
 </body>
 </html>
