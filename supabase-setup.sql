@@ -27,4 +27,4 @@ create policy "auth delete" on public.notices
 -- seed (optional)
 insert into public.notices (published_on, category, title_ja, title_ko, title_en) values
   ('2026-07-01','AI','生成AIによる業務自動化（RPA）導入支援を開始','생성AI 업무자동화(RPA) 도입 지원 서비스 개시','Launched gen-AI office automation (RPA) support'),
-  ('2026-06-20','netmaru','『netmaru』提供エリアを拡大','『netmaru』제공 에리어 확대','netmaru expands coverage');
+  ('2026-06-20','NOMAD CAMP','『NOMAD CAMP』提供エリアを拡大','『NOMAD CAMP』제공 에리어 확대','NOMAD CAMP expands coverage');
