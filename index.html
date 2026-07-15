@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBVCF30WG2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WBVCF30WG2');
+</script>
 <meta name="description" content="株式会社CIZMO｜Creator & Influencer for Gen-Z Marketing ENHANCED OPPORTUNITIES。日韓Z世代マーケティングを主軸に、AI開発・業務自動化、AI・ゲームコンサルティング／市場調査、自社プロダクト『NOMAD CAMP』を展開する共創型マーケティングカンパニー。">
 <title>株式会社CIZMO｜日韓Z世代マーケティング × AI・ゲーム市場調査</title>
 <link rel="canonical" href="https://cizmo.net/">
@@ -537,6 +545,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
     document.querySelectorAll('[data-ja]').forEach(el=>{ var v=el.dataset[l]; if(v!=null&&v!=='') el.innerHTML=v; });
     document.querySelectorAll('button[data-lang]').forEach(b=>{b.classList.toggle('on',b.dataset.lang===l);b.setAttribute('aria-pressed',b.dataset.lang===l?'true':'false');});
     try{localStorage.setItem('cizmo_lang',l);}catch(e){}
+    if(window.gtag) gtag('event','language_change',{language:l});
   };
   document.querySelectorAll('button[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
   var s=null; try{s=localStorage.getItem('cizmo_lang');}catch(e){}
