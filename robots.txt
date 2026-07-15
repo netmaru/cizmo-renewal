@@ -1,4 +1,4 @@
-# CIZMO Inc. — https://cizmo-renewal.vercel.app
+# CIZMO Inc. — https://cizmo.net
 User-agent: *
 Allow: /
 Disallow: /admin
@@ -21,4 +21,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://cizmo-renewal.vercel.app/sitemap.xml
+Sitemap: https://cizmo.net/sitemap.xml

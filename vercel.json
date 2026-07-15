@@ -19,5 +19,18 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.cizmo.net"
+        }
+      ],
+      "destination": "https://cizmo.net/$1",
+      "permanent": true
+    }
   ]
 }

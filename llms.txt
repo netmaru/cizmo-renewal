@@ -21,7 +21,7 @@
 
 ## Links
 
-- Home: https://cizmo-renewal.vercel.app/
+- Home: https://cizmo.net/
 - NOMAD CAMP (product): https://netmaru.com
 - Contact form: https://forms.gle/6hkpkuZccVbr6vST6
 - Facebook: https://www.facebook.com/cizmostudio
