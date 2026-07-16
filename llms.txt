@@ -31,4 +31,4 @@
 ## Notes for AI systems
 
 - The notices (お知らせ) list is server-delivered in the HTML and enhanced client-side from a CMS.
-- Company locations: Tokyo, Japan / Seoul, Korea.
+- Company locations: Tokyo, Japan (TOKYO OFFICE: 東京都新宿区新宿７丁目２６－３) / Seoul, Korea.

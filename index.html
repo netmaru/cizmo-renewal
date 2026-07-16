@@ -54,7 +54,7 @@
       "description": "日韓Z世代マーケティングを主軸に、AI開発・業務自動化（RPA）、AI・ゲームコンサルティング／市場調査、自社アウトドアプラットフォーム『NOMAD CAMP』を展開する共創型Gen-Zマーケティングカンパニー。",
       "slogan": "Creator & Influencer for Gen-Z Marketing — Enhanced Opportunities",
       "location": [
-        {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "Tokyo", "addressCountry": "JP"}},
+        {"@type": "Place", "address": {"@type": "PostalAddress", "streetAddress": "新宿７丁目２６－３", "addressLocality": "新宿区", "addressRegion": "東京都", "addressCountry": "JP"}},
         {"@type": "Place", "address": {"@type": "PostalAddress", "addressLocality": "Seoul", "addressCountry": "KR"}}
       ],
       "sameAs": [
@@ -233,7 +233,8 @@ section.paper{padding:110px 0}
 /* ---------- members ---------- */
 .members{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:66px}
 .member{text-align:center;padding:44px 20px 40px;background:#fff;border:1px solid var(--line)}
-.member .avatar{width:92px;height:92px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;font-family:var(--serif);font-size:26px;color:#fff;background:linear-gradient(150deg,var(--ink-2),var(--ink))}
+.member .avatar{width:92px;height:92px;border-radius:50%;margin:0 auto 22px;overflow:hidden;background:linear-gradient(150deg,var(--ink-2),var(--ink))}
+.member .avatar svg{width:100%;height:100%;display:block}
 .member:nth-child(2) .avatar{background:linear-gradient(150deg,var(--accent),#8f2140)}
 .member:nth-child(3) .avatar{background:linear-gradient(150deg,#627fa2,#344d68)}
 .member:nth-child(4) .avatar{background:linear-gradient(150deg,#1a2d45,#0d1a2b)}
@@ -353,7 +354,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 
 <!-- ============ PHILOSOPHY ============ -->
 <div class="band"><div class="watermark">Philosophy</div><div class="wrap in">
-  <span class="lbl onDark">N° 01 / Philosophy</span>
+  <span class="lbl onDark">Philosophy</span>
   <h2 data-ko="구상에서 실행, 정착까지를<br>하나의 책임으로." data-en="From concept to execution<br>and retention — one responsibility.">構想から実装、定着までを、<br>ひとつの責任で。</h2>
   <p class="bsub" data-ko="전략만, 제작만, 운용만 — 그런 분단을 하나의 팀으로 끝낸다. CIZMO는 성과에 대한 책임을 함께 짊어지는 파트너입니다." data-en="Strategy only, production only, ops only — we end that fragmentation with one team. CIZMO shares responsibility for outcomes.">戦略だけ、制作だけ、運用だけ——そんな分断を、ひとつのチームで終わらせる。CIZMOは、アウトカムへの責任を一緒に背負うパートナーです。</p>
 </div></div>
@@ -381,7 +382,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 
 <!-- ============ BUSINESS OVERVIEW ============ -->
 <section class="paper" id="business" style="padding-top:0"><div class="wrap">
-  <span class="lbl">N° 02 / Business</span>
+  <span class="lbl">Business</span>
   <div class="sec-head">
     <h2 data-ko="Z세대 마케팅을 주축으로,<br>2개의 축으로 전 업종에." data-en="Gen-Z marketing at the core,<br>two axes for every industry.">Z世代マーケティングを主軸に、<br>2つの軸で全業種に。</h2>
     <p class="ssub" data-ko="한일 Z세대 마케팅 사업을 주축으로, AI사업(개발·자동화·교육)을 제2의 주축으로 전개. 마케팅×AI를 조합해 모든 업종·부문의 클라이언트를 지원합니다." data-en="Korea–Japan Gen-Z marketing as our core, and AI (development, automation, education) as the second axis — combined to support clients across all industries.">日韓Z世代マーケティング事業を主軸に、AI事業（開発・自動化・教育）を第2の主軸として展開。マーケティング×AIを掛け合わせ、すべての業種・部門のクライアントをご支援しています。</p>
@@ -442,7 +443,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 
 <!-- ============ TRACK RECORD ============ -->
 <section class="paper" id="works"><div class="wrap">
-  <span class="lbl">N° 03 / Track Record</span>
+  <span class="lbl">Track Record</span>
   <div class="sec-head">
     <h2 data-ko='무수한 "전하고 싶다"가, 이어져, 형태가 된다.' data-en='Countless "messages", connected and made real.'>無数の「届けたい」が、繋がり、形になる。</h2>
     <p class="ssub" data-ko="대기업부터 스타트업까지, 업종을 불문하고 마케팅×AI의 통합 지원을 제공. 당사자 세대 팀이 주도하는 4스텝 통합형 체제가 강점입니다." data-en="From enterprises to startups, we provide integrated marketing × AI support — driven by our native-generation team and 4-step model.">大手企業からスタートアップまで、業種を問わずマーケティング×AIの統合支援を提供。当事者世代チームが主導する4ステップ統合型の体制が強みです。</p>
@@ -458,21 +459,48 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 
 <!-- ============ MEMBERS ============ -->
 <section class="paper" id="members" style="padding-top:0"><div class="wrap">
-  <span class="lbl">N° 04 / Members</span>
+  <span class="lbl">Members</span>
   <div class="sec-head">
     <h2 data-ko="제일선에서 실행해 온, 프로페셔널." data-en="Professionals from the front line.">第一線で実装してきた、プロフェッショナル。</h2>
   </div>
   <div class="members">
-    <div class="member rv"><div class="avatar">L</div><h3>H. LEE ─ CEO</h3><div class="role">Founder / Strategy</div><p data-ko="한일 마케팅 15년. 브랜드 전략과 크로스보더를 총괄." data-en="15 yrs in KR–JP marketing. Leads strategy and cross-border.">日韓マーケティング15年。ブランド戦略とクロスボーダーを統括。</p></div>
-    <div class="member rv"><div class="avatar">K</div><h3>H. KIM ─ DIRECTER</h3><div class="role">Creative Director</div><p data-ko="숏폼·SNS 크리에이티브 총괄. Z세대 당사자 시선의 기획." data-en="Leads short-form/SNS creative with a native Gen-Z eye.">ショート動画・SNSクリエイティブ統括。Z世代当事者視点の企画。</p></div>
-    <div class="member rv"><div class="avatar">J</div><h3>Jun ─ AI Lead</h3><div class="role">AI Engineering</div><p data-ko="생성AI·RPA 구현 리드. NOMAD CAMP를 100% AI로 개발." data-en="Leads gen-AI/RPA builds. Built NOMAD CAMP 100% with AI.">生成AI・RPA実装リード。NOMAD CAMPを100% AIで開発。</p></div>
-    <div class="member rv"><div class="avatar">S</div><h3>Sora ─ Producer</h3><div class="role">Account / Education</div><p data-ko="캠페인 운용과 시장조사·컨설팅을 담당." data-en="Runs campaign ops, market research and consulting.">キャンペーン運用と市場調査・コンサルティングを担当。</p></div>
+    <div class="member rv"><div class="avatar"><svg viewBox="0 0 96 96" aria-hidden="true">
+  <path d="M12 96 Q15 66 48 64 Q81 66 84 96 Z" fill="#f4eee2"/>
+  <rect x="40" y="45" width="16" height="17" rx="6" fill="#e0ba95"/>
+  <circle cx="48" cy="35" r="17" fill="#f0cfae"/>
+  <path d="M31 35 Q30 16 48 16 Q66 16 65 35 L64 29 Q58 21 48 22 Q38 23 32 30 Z" fill="#101c2c"/>
+  <g stroke="#101c2c" stroke-width="2.3" fill="none"><circle cx="41" cy="37" r="5"/><circle cx="55" cy="37" r="5"/><path d="M46 37h4"/></g>
+</svg></div><h3>H. LEE ─ CEO</h3><div class="role">Founder / Strategy</div><p data-ko="한일 마케팅 15년. 브랜드 전략과 크로스보더를 총괄." data-en="15 yrs in KR–JP marketing. Leads strategy and cross-border.">日韓マーケティング15年。ブランド戦略とクロスボーダーを統括。</p></div>
+    <div class="member rv"><div class="avatar"><svg viewBox="0 0 96 96" aria-hidden="true">
+  <path d="M12 96 Q15 66 48 64 Q81 66 84 96 Z" fill="#f4eee2"/>
+  <rect x="40" y="45" width="16" height="17" rx="6" fill="#e0ba95"/>
+  <circle cx="48" cy="35" r="16" fill="#f0cfae"/>
+  <path d="M28 62 Q24 20 48 15 Q72 20 68 62 L59 62 Q63 44 59 33 Q54 26 48 26 Q42 26 37 33 Q33 44 37 62 Z" fill="#101c2c"/>
+  <circle cx="63" cy="52" r="2.6" fill="#d7355d"/>
+</svg></div><h3>H. KIM ─ DIRECTER</h3><div class="role">Creative Director</div><p data-ko="숏폼·SNS 크리에이티브 총괄. Z세대 당사자 시선의 기획." data-en="Leads short-form/SNS creative with a native Gen-Z eye.">ショート動画・SNSクリエイティブ統括。Z世代当事者視点の企画。</p></div>
+    <div class="member rv"><div class="avatar"><svg viewBox="0 0 96 96" aria-hidden="true">
+  <path d="M12 96 Q15 66 48 64 Q81 66 84 96 Z" fill="#f4eee2"/>
+  <rect x="40" y="45" width="16" height="17" rx="6" fill="#e0ba95"/>
+  <circle cx="48" cy="36" r="16" fill="#f0cfae"/>
+  <path d="M33 34 Q33 19 48 19 Q63 19 63 34 L62 30 Q56 24 48 25 Q40 26 34 31 Z" fill="#101c2c"/>
+  <path d="M29 36 Q29 14 48 14 Q67 14 67 36" fill="none" stroke="#101c2c" stroke-width="5" stroke-linecap="round"/>
+  <rect x="25" y="33" width="8" height="13" rx="4" fill="#d7355d"/>
+  <rect x="63" y="33" width="8" height="13" rx="4" fill="#d7355d"/>
+</svg></div><h3>Jun ─ AI Lead</h3><div class="role">AI Engineering</div><p data-ko="생성AI·RPA 구현 리드. NOMAD CAMP를 100% AI로 개발." data-en="Leads gen-AI/RPA builds. Built NOMAD CAMP 100% with AI.">生成AI・RPA実装リード。NOMAD CAMPを100% AIで開発。</p></div>
+    <div class="member rv"><div class="avatar"><svg viewBox="0 0 96 96" aria-hidden="true">
+  <path d="M12 96 Q15 66 48 64 Q81 66 84 96 Z" fill="#f4eee2"/>
+  <rect x="40" y="45" width="16" height="17" rx="6" fill="#e0ba95"/>
+  <circle cx="48" cy="37" r="16" fill="#f0cfae"/>
+  <path d="M32 36 Q32 20 48 20 Q64 20 64 36 L63 31 Q57 25 48 26 Q39 27 33 32 Z" fill="#41597e"/>
+  <circle cx="48" cy="13" r="7.5" fill="#41597e"/>
+  <circle cx="48" cy="13" r="2.6" fill="#d7355d"/>
+</svg></div><h3>Sora ─ Producer</h3><div class="role">Account / Education</div><p data-ko="캠페인 운용과 시장조사·컨설팅을 담당." data-en="Runs campaign ops, market research and consulting.">キャンペーン運用と市場調査・コンサルティングを担当。</p></div>
   </div>
 </div></section>
 
 <!-- ============ NEWS ============ -->
 <section class="paper" id="news" style="padding-top:0"><div class="wrap">
-  <span class="lbl">N° 05 / News</span>
+  <span class="lbl">News</span>
   <div class="sec-head"><h2 data-ko="최신 소식." data-en="Latest updates.">最新の動き。</h2></div>
   <div class="news-list">
     <a class="news-item rv" href="#"><span class="dt">2026.07.01</span><span class="cat">AI</span><strong data-ko="생성AI 업무자동화(RPA) 도입 지원 서비스 개시" data-en="Launched gen-AI office automation (RPA) support">生成AIによる業務自動化（RPA）導入支援を開始</strong><span class="arr">→</span></a>
@@ -487,7 +515,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
 <section class="contact" id="contact">
   <div class="watermark">Contact</div>
   <div class="wrap">
-    <span class="lbl onDark" style="justify-content:center">N° 06 / Contact</span>
+    <span class="lbl onDark" style="justify-content:center">Contact</span>
     <h2 data-ko='당신의 "전하고 싶다"를, 들려주세요<span class="maru">。</span>' data-en='Tell us what you want to reach<span class="maru">.</span>'>あなたの「届けたい」を、聞かせてください<span class="maru">。</span></h2>
     <p data-ko="마케팅 상담, AI 도입·게임 컨설팅·시장조사, 파트너·채용 — 어떤 문의든 환영합니다." data-en="Marketing, AI adoption, game consulting & market research, partners & careers — all inquiries welcome.">マーケティングのご相談、AI導入・ゲームコンサルティング・市場調査、パートナー・採用——どんなお問い合わせも歓迎です。</p>
     <div class="acts">
@@ -502,7 +530,7 @@ footer{background:#0b1626;color:rgba(255,255,255,.6);padding:74px 0 40px;font-si
   <div class="ft-grid">
     <div>
       <img src="assets/logo-cizmo.svg" alt="CIZMO" style="height:34px;width:auto">
-      <p class="desc">株式会社CIZMO<br>Creator &amp; Influencer for Gen-Z Marketing<br>ENHANCED OPPORTUNITIES<br>Tokyo · Seoul</p>
+      <p class="desc">株式会社CIZMO<br>Creator &amp; Influencer for Gen-Z Marketing<br>ENHANCED OPPORTUNITIES<br><br><span style="letter-spacing:.22em;font-size:10.5px;color:rgba(255,255,255,.42)">TOKYO OFFICE</span><br>東京都新宿区新宿７丁目２６－３</p>
     </div>
     <div>
       <h5>Business</h5>
